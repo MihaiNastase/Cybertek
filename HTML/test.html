@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="../MEDIA/cybertek.ico" type="image/icon type">
+    <title>CYBERTEK</title>
+</head>
+
+<body>
+  <div class="clock">
+hello
+  </div>
+
+  </body>
+  <script>
+  (function() {
+    // Add Date object
+    var time = new Date();
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var day = time.getDate();
+    var month = time.getMonth();
+    var year = time.getFullYear();
+
+    if(day%10 == 1 && day != 11){
+      day = day + "st";
+    } else if(day%10 == 2 && day != 12) {
+      day = day + "nd";
+    } else if(day%10 == 3 && day != 13) {
+      day = day + "rd";
+    } else { day = day + "th"; }
+
+    var fullTime = `${day} <br> ${months[month]} <br> ${year}`;
+    // Select the Clock div
+    document.querySelector(".clock").innerHTML = fullTime;
+  })();
+  </script>
+
+  </html>
