@@ -22,16 +22,12 @@
   background-size: 110%, 110%, 110%;
 }
 
-h1 {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #fff;
-  font-family: "Arial";
-  text-transform: uppercase;
-  opacity: .2;
-  font-size: 70px;
+p {
+  font-family: Tomorrow, sans-serif;
+  font-size: calc(0.5em + 1vw);
+  line-height: 1;
+  color: #7df9ff;
+  padding: 10px;
 }
 
 img {
@@ -122,6 +118,13 @@ img {
 @media only screen and (max-width: 1250px) {
   #parallax {
     background-size: 140%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  p {
+    font-size: calc(1em + 1vw);
+    padding: 20px;
   }
 }
 
