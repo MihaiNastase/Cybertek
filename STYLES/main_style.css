@@ -19,7 +19,10 @@ body{
   border-right: 5px solid white;
   position:fixed;
   bottom:0px;
-  margin: auto;
+  left: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  transform: translate(-50%, 0);
   padding: 10px;
   font-family: Tomorrow, sans-serif;
   font-size: calc(1em + 1vw);
