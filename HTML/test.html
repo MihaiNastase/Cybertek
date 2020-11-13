@@ -5,36 +5,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="../MEDIA/cybertek.ico" type="image/icon type">
-    <title>CYBERTEK</title>
+    <link rel="stylesheet" href="../STYLES/main_style.css">
+    <title>CYBERTEST</title>
+    <style>
+    </style>
 </head>
 
 <body>
-  <div class="clock">
+  <div id="parallax_2">
 hello
   </div>
 
-  </body>
   <script>
   (function() {
-    // Add Date object
-    var time = new Date();
-    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    var day = time.getDate();
-    var month = time.getMonth();
-    var year = time.getFullYear();
+      // Add event listener
+      document.addEventListener("mousemove", parallax);
+      const elem = document.querySelector("#parallax_2");
+      // Magic happens here
+      function parallax(e) {
+          let _w = window.innerWidth/2;
+          let _h = window.innerHeight/2;
+          let _mouseX = e.clientX;
+          let _mouseY = e.clientY;
+          let _depth1 = `${50 - (_mouseX - _w) * 0.01}% ${50 - (_mouseY - _h) * 0.01}%`;
+          let _depth2 = `${50 - (_mouseX - _w) * 0.02}% ${50 - (_mouseY - _h) * 0.02}%`;
+          let x = `${_depth2}, ${_depth1}`;
+          //console.log(x);
+          elem.style.backgroundPosition = x;
+      }
 
-    if(day%10 == 1 && day != 11){
-      day = day + "st";
-    } else if(day%10 == 2 && day != 12) {
-      day = day + "nd";
-    } else if(day%10 == 3 && day != 13) {
-      day = day + "rd";
-    } else { day = day + "th"; }
-
-    var fullTime = `${day} <br> ${months[month]} <br> ${year}`;
-    // Select the Clock div
-    document.querySelector(".clock").innerHTML = fullTime;
   })();
+
   </script>
+  </body>
 
   </html>

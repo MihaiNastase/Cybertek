@@ -32,3 +32,16 @@ body{
   color: #c9fc00;
   background-color: rgba(87, 89, 93, 0.5);
 }
+
+#parallax_2 {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-image:
+  url(../MEDIA/landing_page/depth-1.png),
+  url(../MEDIA/catalog_background.png);
+  background-repeat: repeat, repeat;
+  background-position: center;
+  background-position: 50% 50%;
+
+}
