@@ -18,7 +18,62 @@
   </div>
   <div class="container-flow">
     <div class="content col-sm-10 col-md-8"><div>
+    <div class="row">
+      <div class="hidden-xs col-sm-1 col-md-8"></div>
+      <div class="col-xs-12 col-sm-10 col-md-8">
+        <form action="/PHP/database_addentry_register.php" method="post">
+            <table>
+              <tr>
+                <td>
+                  <label for="firstName">First Name: </label>
+                </td>
+                <td>
+                  <input type="text" name = "fname" id="firstName"/>
+                </td>
+              </tr>
 
+              <tr>
+                <td>
+                  <label for="lastName">Last Name: </label>
+                </td>
+                <td>
+                  <input type="text" name = "lname" id="lastName"/>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <label for="mail">Email: </label>
+                </td>
+                <td>
+                  <input type="email" name = "email" id="mail"/>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <label for="passwd">Password: </label>
+                </td>
+                <td>
+                  <input type="password" name = "password" id="passwd"/>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="repasswd">Retype Password: </label>
+                </td>
+                <td>
+                  <input type="password" name = "repassword" id="repasswd"/>
+                </td>
+              </tr>
+
+
+            </table>
+            <br><input type="submit" />
+          </form>
+      </div>
+      <div class="hidden-xs col-sm-1 col-md-8"></div>
+    </div>
   </div>
 
 
