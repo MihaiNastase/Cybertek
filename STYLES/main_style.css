@@ -5,8 +5,30 @@ body{
   padding: 0px;
   height:100%;
   width:100%;
-  position:fixed;
   background-color: #1d1e22;
+  font-family: Tomorrow, sans-serif;
+  line-height: 1;
+  color: #7df9ff;
+}
+
+/*This background works*/
+.content {
+  background-image: url(../MEDIA/content_back.jpg);
+  height: auto;
+  position: fixed;
+  z-index: -1;
+  margin: auto;
+  top:0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: visible;
+}
+
+
+/*Fix vertical scroll*/
+.container-flow {
+  overflow-x: hidden;
 }
 
 .clock {
@@ -31,4 +53,19 @@ body{
   text-transform: uppercase;
   color: #c9fc00;
   background-color: rgba(87, 89, 93, 0.5);
+}
+
+#parallax_2 {
+  z-index: -2;
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-image:
+  url(../MEDIA/landing_page/depth-1.png),
+  url(../MEDIA/catalog_background.png);
+  background-repeat: repeat, repeat;
+  background-position: center;
+  background-position: 50% 50%;
+
 }
