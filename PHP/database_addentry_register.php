@@ -19,6 +19,7 @@
       die("Connection failed: " . $conn->connect_error);
   }
 
+	//for testing adding 
   //$sql = "INSERT INTO customers (`UserID`, `Email`, `FirstName`, `LastName`, `Password`, `City`, `AddressFirstLine`, `AddressSecondLine`, `CardNumber`, `ExpiryDate`, `CVS`) VALUES (NULL, 'MihaiNastae@email.com', 'Mihai', 'Nastase', 'password123', 'Coventry', '06 Ardea Court', 'David Road', '0123456789101112', '2021-11-12', '333')";
 
   //get info from form using POST
