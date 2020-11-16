@@ -13,6 +13,7 @@ body{
 
 /*This background works*/
 .content {
+  display: block;
   background-image: url(../MEDIA/content_back.jpg);
   height: auto;
   position: fixed;
