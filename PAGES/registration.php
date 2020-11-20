@@ -75,6 +75,8 @@
                           <span class="btn__content">REGISTER_</span>
                         </button>
             </form>
+            <a href="login.php"> >> Already have an account? Log in >> </a><br>
+            <a href="landing_page.html"> << Back << </a>
           </div>
         </div>
       </div>

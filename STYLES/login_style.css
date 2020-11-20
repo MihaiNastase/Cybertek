@@ -6,8 +6,8 @@
   width: 50%;
   font-size: 0.8em;
   margin: auto;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   position: relative;
   display: block;
   }
@@ -20,24 +20,23 @@
 }
 
 .form_header {
-  margin: 40px;
+  margin: 35px;
 }
 
-.btn__content {background-color: #04edf5; }
+.btn__content {background-color: #04edf5; font-size: 2em; }
 
 .form_shape{
   display: block;
   width: 50%;
-  min-height: 450px;
+  height: 55vh;
   overflow: hidden;
   border: 3px dashed #04edf5;
   outline: none;
+  margin: auto;
   background-color: black;
-  margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
-  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   font-family: Tomorrow, sans-serif;
   font-size: calc(1em + 1vw);
@@ -51,7 +50,7 @@
 .form_content {
   display: block;
   width:calc(100% - 6px);
-  height: calc(100% - 103px);
+  height: calc(100% - 10vh - 3px);
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -60,9 +59,11 @@
   left: 3px;
   right: 3px;
   color:black;
-  font-size: calc(0.8em + 2vw);
+  text-align: center;
   background-color: #f9ea0b;
 }
+
+.form_content a { color: black; font-size: min(max(1rem, 4vw), 22px);}
 
 input {
 background-color:#04edf5;
@@ -76,17 +77,18 @@ font-size: 0.8em;
 text-align: center;
 }
 
-table, tr {width:100%; height:10vh; padding: 0;}
-
+table { height: 70%; width:100%; padding: 0;}
+tr { height:10vh; width:100%; padding: 0; }
 table, td {
   border-bottom: 3px solid black;
   border-right: 3px solid black;
   border-collapse:collapse;
 }
 
-td {width: 50%; text-align: center;}
+td {width: 50%; text-align: center; font-size: calc(1em + 1vw); }
 
 @media only screen and ( max-width:950px ) {
+  td { font-size: 24px; }
   .form_shape {width: 70%; min-height: 400px; }
   .btn {margin-top: 5px;}
 }
@@ -95,10 +97,18 @@ td {width: 50%; text-align: center;}
   .form_shape {width: 80%;}
 }
 
+@media only screen and ( max-width:700px ) {
+  td { font-size: 24px; }
+  .btn {width: 80%;}
+  .form_content a { display: none; }
+}
+
 @media only screen and ( max-height:700px ) {
   .btn { min-height: 75px; margin-top: 4vh; }
   .errors { margin-left: 5px; }
-  .form_content { height: calc(100% - 103px); }
+  .form_header { margin: 15px; }
+  .form_content { height: calc(100% - 10vh - 3px); }
+  .form_content a { display: none; }
 }
 
 @media only screen and ( max-height:500px ) {

@@ -7,6 +7,6 @@
      $alert .= $error . "_<br>";
    }
    $alert .= "</div>";
- } else { $alert = '<div class="form_header"> register//here_'; }
+ } else { $alert = '<div class="form_header"> register//here_ </div>'; }
  echo $alert;
 ?>
