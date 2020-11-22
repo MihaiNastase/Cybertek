@@ -1,4 +1,16 @@
-<?php include('../PHP/database_login.php') ?>
+<?php
+  session_start();
+
+  if (!isset($_SESSION['name'])) {
+  	$_SESSION['msg'] = "You must log in first";
+  	header('location: login.php');
+  }
+  if (isset($_GET['logout'])) {
+  	session_destroy();
+  	unset($_SESSION['name']);
+  	header("location: index.html");
+  }
+?>
 <!doctype html>
 <html lang="en">
 
@@ -18,41 +30,29 @@
 
 <body>
   <div id="parallax_2"></div>
-
-        <div class = "form_shape">
-          <?php include('../PHP/errors_login.php'); ?>
-          <div class = "form_content">
-            <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
-              <table>
-                          <tr>
-                            <td>
-                              <label for="mail">Email: </label>
-                            </td>
-                            <td>
-                              <input type="text" name = "email" id="mail" value="<?php echo $email; ?>" />
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td>
-                              <label for="passwd">Password: </label>
-                            </td>
-                            <td>
-                              <input type="password" name = "password" id="passwd" />
-                            </td>
-                          </tr>
-
-                </table>
-                        <button class="btn" type="submit" name="login_user">
-                          <span class="btn__content">LOGIN_</span>
-                        </button>
-            </form>
-
-            <a href="registration.php"> >> Don't have an account? Register >> </a><br>
-            <a href="index.html"> << Back << </a>
-          </div>
+  <div class="content col-sm-10 col-md-8"></div>
+  <div class="header">
+  	<h2>Home Page</h2>
+  </div>
+  <div>
+    	<!-- notification message -->
+    	<?php if (isset($_SESSION['success'])) : ?>
+        <div class="error success" >
+        	<h3>
+            <?php
+            	echo $_SESSION['success'];
+            	unset($_SESSION['success']);
+            ?>
+        	</h3>
         </div>
+    	<?php endif ?>
 
+      <!-- logged in user information -->
+      <?php  if (isset($_SESSION['name'])) : ?>
+      	<p>Welcome <strong><?php echo $_SESSION['name']; ?></strong></p>
+      	<p> <a href="admin_dashboard.php?logout='1'" style="color: red;">logout</a> </p>
+      <?php endif ?>
+  </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -75,16 +75,6 @@
           //console.log(x);
           elem.style.backgroundPosition = x;
       }
-
-  })();
-  </script>
-  <script>
-  (function() {
-    var element = document.getElementById("fail");
-    if(typeof(element) != 'undefined' && element != null){
-       document.querySelector(".form_shape").classList.add("fail");
-   }
-
 
   })();
   </script>

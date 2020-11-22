@@ -8,7 +8,7 @@
   if (isset($_GET['logout'])) {
   	session_destroy();
   	unset($_SESSION['name']);
-  	header("location: landing_page.php");
+  	header("location: index.html");
   }
 ?>
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
     <!-- logged in user information -->
     <?php  if (isset($_SESSION['name'])) : ?>
     	<p>Welcome <strong><?php echo $_SESSION['name']; ?></strong></p>
-    	<p> <a href="index.php?logout='1'" style="color: red;">logout</a> </p>
+    	<p> <a href="customer.php?logout='1'" style="color: red;">logout</a> </p>
     <?php endif ?>
 </div>
 

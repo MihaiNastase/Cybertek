@@ -5,6 +5,9 @@
   --blue-color: #00f0ff;
   --white-color: #192b3b;
 }
+.clock {
+  bottom: 0px;
+}
 
 #parallax_3 {
   position: relative;

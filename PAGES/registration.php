@@ -25,7 +25,7 @@
         <div class = "form_shape">
           <?php include('../PHP/errors_registration.php'); ?>
           <div class = "form_content">
-            <form method="post" action="registration.php">
+            <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
               <table>
                           <tr>
                             <td>
@@ -76,7 +76,7 @@
                         </button>
             </form>
             <a href="login.php"> >> Already have an account? Log in >> </a><br>
-            <a href="landing_page.html"> << Back << </a>
+            <a href="index.html"> << Back << </a>
           </div>
         </div>
       </div>

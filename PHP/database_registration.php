@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <?php
 	session_start();
 
@@ -8,12 +8,8 @@
 	$email    = "";
 	$errors = array();
 
-  //create connection
-  $conn = new mysqli('localhost', 'root', '', 'cybertech');
-  //check connection
-  if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-  }
+	//connect to database
+	include 'dbconnect.php';
 
 	// REGISTER USER
 	if (isset($_POST['reg_user'])) {
@@ -54,6 +50,11 @@
 		//Log in the customers and continue the session
   	$_SESSION['name'] = $firstName;
   	$_SESSION['success'] = "LOG//ON//SUCCESS_";
-  	header('location: index.php');
+  	header('location: customer.php');
   }
 }
+
+//close db connection
+$conn->close();
+
+?>
