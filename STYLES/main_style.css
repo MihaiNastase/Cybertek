@@ -11,7 +11,7 @@ body{
   color: #7df9ff;
 }
 
-/* Custom header */ /* TODO: requiers size ajustments */
+/* Custom header */
 .header {
   background-image: url("../MEDIA/header.svg");
   background-repeat: no-repeat;
@@ -20,6 +20,47 @@ body{
   min-height: 20vh;
   width: 100%;
   display: block;
+}
+
+.menu {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  margin: 0 auto;
+  text-align: center;
+  top: 5px;
+}
+
+.header img {
+  width: 75%;
+  height: auto;
+  display: inline-block;
+}
+
+.menu  figure {
+    display: inline-block;
+    width: 30%;
+}
+
+.menu figure img {
+    vertical-align: top;
+    height: auto;
+    width: 30%;
+}
+
+.menu figure figcaption {
+    text-align: center;
+}
+
+.menu figure a {
+  text-decoration: none;
+  color: #7df9ff;
+}
+
+.menu figure a:hover {
+  color: #c9fc00;
 }
 
 
@@ -67,6 +108,7 @@ body{
 }
 
 .header .clock {
+  min-width: 100%;
   right:0px; left:auto;
   transform: none;
   border: none;

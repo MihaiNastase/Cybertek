@@ -40,7 +40,7 @@ if (isset($_POST['login_user'])) {
 				$user = mysqli_fetch_assoc($results);
 	  	  $_SESSION['name'] = $user['FirstName'];
 	  	  $_SESSION['success'] = "You are now logged in";
-	  	  header('location: customer_.php');
+	  	  header('location: customer_dashboard.php');
 	  	}else { //if no admin or user is found then push an error into the errors array
 	  		array_push($errors, "Wrong email/password combination");
 	  	}
