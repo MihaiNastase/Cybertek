@@ -198,6 +198,54 @@ body{
   animation: glitch-animation 2s linear 0s infinite;
 }
 
+.table-container {
+  width:100%;
+  height:auto;
+  display:block;
+  overflow-x:scroll;
+  overflow-y:hidden;
+  margin-top: 10px;
+  margin-bottom: 50px;
+}
+
+.table-sortable tbody{
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.table-sortable tbody td{
+  border: 2px solid rgba(255,255,255, 0.5);
+  padding: 5px;
+}
+
+.table-sortable th {
+  cursor: pointer;
+  color: #c9fc00;
+  background-color: grey;
+  text-align: center;
+  font-size: 1.5em;
+  padding: 5px;
+  border: 2px solid black;
+}
+
+.table-sortable .th-sort-asc::after {
+  content: "\25b4";
+}
+
+.table-sortable .th-sort-desc::after {
+  content: "\25be";
+}
+
+.table-sortable .th-sort-asc::after,
+.table-sortable .th-sort-desc::after {
+  margin-left: 5px;
+}
+
+.table-sortable .th-sort-asc,
+.table-sortable .th-sort-desc {
+  background: #c9fc00;
+  color: grey;
+}
+
 
 @media only screen and (max-width: 1000px) {
   .header { display: none; }

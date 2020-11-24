@@ -33,6 +33,7 @@
 
   <div class="container-flow">
   <div class="content col-sm-10 col-md-8"></div>
+  <!-- HEADER STARTS HERE -->
   <div class="row">
     <div class="hidden-xs col-md-12 header">
       <div class="row">
@@ -46,22 +47,22 @@
 
             <figure>
               <a href="#">
-                <img src="../MEDIA/menu_buttons/add_product.png" alt="logout">
-                <figcaption>PRODUCTS_</figcaption>
+                <img src="../MEDIA/menu_buttons/catalog.png" alt="logout">
+                <figcaption>STORE_</figcaption>
               </a>
             </figure>
 
             <figure>
               <a href="#">
-                <img src="../MEDIA/menu_buttons/add_cust.png" alt="logout">
-                <figcaption>USERS_</figcaption>
+                <img src="../MEDIA/menu_buttons/profile.png" alt="logout">
+                <figcaption>PROFILE_</figcaption>
               </a>
             </figure>
 
             <figure>
-              <a href="admin_dashboard.php?logout='1'">
-                <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
-                <figcaption>LOGOUT_</figcaption>
+              <a href="#">
+                <img src="../MEDIA/menu_buttons/contact.png" alt="logout">
+                <figcaption>CONTACT_</figcaption>
               </a>
             </figure>
 
@@ -73,6 +74,8 @@
   </div>
   </div>
   </div>
+  <!-- HEADER STARTS HERE -->
+  
   <div class="row">
     <div class="hidden-xs col-sm-1 col-md-2"></div>
     <div class="col-sm-10 col-md-8">

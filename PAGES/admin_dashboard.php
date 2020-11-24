@@ -33,6 +33,7 @@
 
   <div class="container-flow">
   <div class="content col-sm-10 col-md-8"></div>
+  <!-- HEADER STARTS HERE -->
   <div class="row">
     <div class="hidden-xs col-md-12 header">
       <div class="row">
@@ -45,14 +46,14 @@
           <div class="menu">
 
             <figure>
-              <a href="#">
+              <a href="admin_.php?target=products">
                 <img src="../MEDIA/menu_buttons/add_product.png" alt="logout">
                 <figcaption>PRODUCTS_</figcaption>
               </a>
             </figure>
 
             <figure>
-              <a href="#">
+              <a href="admin_.php?target=profiles">
                 <img src="../MEDIA/menu_buttons/add_cust.png" alt="logout">
                 <figcaption>USERS_</figcaption>
               </a>
@@ -73,6 +74,8 @@
   </div>
   </div>
   </div>
+  <!-- HEADER EDNS HERE -->
+
   <div class="row">
     <div class="hidden-xs col-sm-1 col-md-2"></div>
     <div class="col-sm-10 col-md-8">
@@ -88,7 +91,7 @@
     	<?php endif ?>
       <!-- logged in user information -->
       <?php  if (isset($_SESSION['name'])) : ?>
-      	<p>Welcome ADMIN <strong><?php echo $_SESSION['name']; ?></strong></p>
+      	<h1>Welcome ADMIN <strong><?php echo $_SESSION['name']; ?></strong></h1>
       <?php endif ?>
     </div>
     <div class="hidden-xs col-sm-1 col-md-2"></div>
