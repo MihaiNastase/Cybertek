@@ -1,5 +1,6 @@
 <?php
   session_start();
+  $ypos = $_COOKIE["ypos"]; //use this to keep scroll position on page request (better accessibility)
 
   if (!isset($_SESSION['name'])) {
   	$_SESSION['msg'] = "You must log in first";
@@ -9,6 +10,20 @@
   	session_destroy();
   	unset($_SESSION['name']);
   	header("location: index.html");
+  }
+
+  include '../PHP/dbconnect.php'; //connect to database
+
+  if(isset($_POST['update'])){
+    echo "<h1>UPDATE WORKS</h2>" . $_POST['userID'];
+    //TODO redirect to update page
+    unset($_POST['update']); //unset POST variable so the querry is not ran again on page refresh
+  }
+
+  if(isset($_POST['delete'])){
+    $query = "DELETE FROM customers WHERE UserID='" . $_POST['userID'] . "';";
+    mysqli_query($conn, $query);
+    unset($_POST['delete']); //unset POST variable so the querry is not ran again on page refresh
   }
 ?>
 <!doctype html>
@@ -28,7 +43,7 @@
     </style>
 </head>
 
-<body>
+<body <?php echo "onScroll=\"document.cookie='$ypos=' + window.pageYOffset\" onLoad='window.scrollTo(0,$ypos)'"; ?> >
   <div id="parallax_2"></div>
 
   <div class="container-flow">
@@ -90,7 +105,15 @@
     </div>
     <div class="hidden-xs col-sm-1 col-md-2"></div>
   </div>
+  <div class="row">
+
+  </div>
 </div>
+
+  <!-- Stops form resubmit popup -->
+  <script>
+    if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
+  </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
