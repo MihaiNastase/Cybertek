@@ -1,15 +1,7 @@
 <?php
   session_start();
 
-  if (!isset($_SESSION['name'])) {
-  	$_SESSION['msg'] = "You must log in first";
-  	header('location: login.php');
-  }
-  if (isset($_GET['logout'])) {
-  	session_destroy();
-  	unset($_SESSION['name']);
-  	header("location: index.html");
-  }
+  include '../PHP/check_login.php'; //check login status for session
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,7 +15,7 @@
     <link rel="stylesheet" href="../STYLES/login_style.css">
 
     <link rel="icon" href="../MEDIA/cybertek.ico" type="image/ico">
-    <title>LOGIN_</title>
+    <title>HOME_</title>
     <style>
     </style>
 </head>
@@ -75,7 +67,7 @@
   </div>
   </div>
   <!-- HEADER STARTS HERE -->
-  
+
   <div class="row">
     <div class="hidden-xs col-sm-1 col-md-2"></div>
     <div class="col-sm-10 col-md-8">

@@ -1,46 +1,39 @@
 <?php
   session_start();
-  $ypos = $_COOKIE["ypos"]; //use this to keep scroll position on page request (better accessibility)
 
   include '../PHP/check_login.php'; //check login status for session
 
   include '../PHP/dbconnect.php'; //connect to database
 
-//unset global variable for session action if the admin switches pages after update_.php
-  if(isset($_SESSION['action'])) { unset($_SESSION['action']); }
+  //this if statements modify the link for the "BACK" button to redirect to the admin_.php page with the target previously used
+  if($_SESSION['action']=="updateProfile") {
+    $target = "target=profiles";
+    if(isset($_POST['update_user'])){
 
+    }
+  } else if($_SESSION['action']=="updateProduct") {
+    $target = "target=products";
+  }
 
-//set these actions and queries is the admin selected the profiles section
-if($_GET['target'] == "profiles") {
-  if(isset($_POST['update'])){
-    $_SESSION['userID'] = $_POST['userID'];
-    unset($_POST['userID']); //unset this POST variable to avoid a data leak
-    $_SESSION['action'] = "updateProfile";
-    header("location: update_.php");
-    unset($_POST['update']); //unset POST variable so the querry is not ran again on page refresh
+  $update_status = "";
+//update customer profile
+  if(isset($_POST['update_user'])) {
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $userID = $_SESSION['userID'];
+    $update = "UPDATE customers SET FirstName='$firstName', LastName='$lastName' WHERE UserID ='$userID' ";
+    mysqli_query($conn, $update);
+    $update_status = "Entry Updated!";
+    unset($_POST['update_user']); //unset after query if the form is resumited on page reqest
   }
-  if(isset($_POST['delete'])){
-    $query = "DELETE FROM customers WHERE UserID='" . $_POST['userID'] . "';";
-    mysqli_query($conn, $query);
-    unset($_POST['delete']); //unset POST variable so the querry is not ran again on page refresh
-  }
-}
 
-//set these actions and queries is the admin selected the products section
-if($_GET['target'] == "products") {
-  if(isset($_POST['update'])){
-    $_SESSION['productID'] = $_POST['productID'];
-    unset($_POST['productID']); //unset this POST variable to avoid a data leak
-    $_SESSION['action'] = "updateProduct";
-    header("location: update_.php");
-    unset($_POST['update']); //unset POST variable so the querry is not ran again on page refresh
+//update product details
+  if(isset($_POST['update_product'])) {
+    //TODO
+    $update_status = "Entry Updated!";
+    unset($_POST['update_product']); //unset after query if the form is resumited on page reqest
   }
-  if(isset($_POST['delete'])){
-    $query = "DELETE FROM products WHERE ProductID='" . $_POST['productID'] . "';";
-    mysqli_query($conn, $query);
-    unset($_POST['delete']); //unset POST variable so the querry is not ran again on page refresh
-  }
-}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -54,12 +47,12 @@ if($_GET['target'] == "products") {
     <link rel="stylesheet" href="../STYLES/login_style.css">
 
     <link rel="icon" href="../MEDIA/cybertek.ico" type="image/ico">
-    <title>ADMIN_</title>
+    <title>UPDATE_</title>
     <style>
     </style>
 </head>
-<!--this solution for fixing scroll position does not work properly, find replacement-->
-<body <?php echo "onScroll=\"document.cookie='$ypos=' + window.pageYOffset\" onLoad='window.scrollTo(0,$ypos)'"; ?> >
+
+<body>
   <div id="parallax_2"></div>
 
   <div class="container-flow">
@@ -91,7 +84,7 @@ if($_GET['target'] == "products") {
             </figure>
 
             <figure>
-              <a href="admin_dashboard.php?">
+              <a href="<?php echo "admin_.php?" . $target; ?>">
                 <img src="../MEDIA/menu_buttons/logout.png" alt="back">
                 <figcaption>BACK_</figcaption>
               </a>
@@ -109,20 +102,51 @@ if($_GET['target'] == "products") {
   <div class="row">
     <div class="hidden-xs col-sm-1 col-md-2"></div>
     <div class="col-sm-10 col-md-8">
-    	<!-- Display tables here -->
+
+    	<!-- Display forms here -->
       <?php
-        if($_GET['target'] == "profiles") {
-          include '../PHP/users_table.php'; //display tables containing users and amdmins
-        } else if($_GET['target'] == "products") {
-          include '../PHP/products_table.php'; //display tables containing products
-        } else { header("location: admin_dashboard.php"); }
+        if(!isset($_SESSION['userID'])) : echo "<h1><span style='color:red;'>USER ID NOT FOUND</span></h1>";
+          else :
+          $query = "SELECT Email, FirstName, LastName FROM customers WHERE UserID =" . $_SESSION['userID'];
+          $result = mysqli_query($conn, $query);
+          if($result->num_rows === 0) :
+            echo "<tr><td>No results</td></tr>";
+          else :
+
+            $data = mysqli_fetch_assoc($result);
+            //print form
+      ?>
+      <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>">
+      <h2><u>Edit Entry: </u><?php echo $update_status; ?></h2>
+      <div class="form-container">
+        <table>
+                    <tr>
+                      <td><label>Email: </label></td>
+                      <td><label><?php echo $data['Email']; ?></lable></td>
+                    </tr>
+                    <tr>
+                      <td><label for="lname">First Name: </label></td>
+                      <td><input type="text" name = "firstName" id="fname" value="<?php echo $data['FirstName'];?>"/></td>
+                    </tr>
+                    <tr>
+                      <td><label for="mail">Last Name: </label></td>
+                      <td><input type="text" name = "lastName" id="lname" value="<?php echo $data['LastName'];?>"/></td>
+                    </tr>
+
+          </table>
+        </div>
+                <button class="btn" type="submit" name="update_user">
+                  <span class="btn__content">Update Entry</span>
+                </button>
+      </form>
+      <?php
+          endif;
+        endif;
+
       ?>
 
     </div>
     <div class="hidden-xs col-sm-1 col-md-2"></div>
-  </div>
-  <div class="row">
-
   </div>
 </div>
 
@@ -135,10 +159,8 @@ if($_GET['target'] == "products") {
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 
-  <script src="../JS/tablesort.js"></script>
-
   <script src="../JS/parallax_2.js"></script>
   <script src="../JS/clock.js"></script>
   </body>
+
   </html>
-  <?php $conn -> close(); ?>
