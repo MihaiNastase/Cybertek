@@ -8,6 +8,7 @@
 
 //unset global variable for session action if the admin switches pages after update_.php
   if(isset($_SESSION['action'])) { unset($_SESSION['action']); }
+  if(isset($_SESSION['target'])) { unset($_SESSION['target']); }
 
 
 //set these actions and queries is the admin selected the profiles section
@@ -15,6 +16,7 @@ if($_GET['target'] == "profiles") {
   if(isset($_POST['update'])){
     $_SESSION['userID'] = $_POST['userID'];
     unset($_POST['userID']); //unset this POST variable to avoid a data leak
+    $_SESSION['target'] = "profiles";
     $_SESSION['action'] = "updateProfile";
     header("location: update_.php");
     unset($_POST['update']); //unset POST variable so the querry is not ran again on page refresh
@@ -31,6 +33,7 @@ if($_GET['target'] == "products") {
   if(isset($_POST['update'])){
     $_SESSION['productID'] = $_POST['productID'];
     unset($_POST['productID']); //unset this POST variable to avoid a data leak
+    $_SESSION['target'] = "products";
     $_SESSION['action'] = "updateProduct";
     header("location: update_.php");
     unset($_POST['update']); //unset POST variable so the querry is not ran again on page refresh

@@ -43,8 +43,6 @@
     // Add product if there are no errors in the form
     if ($error == "") {
       //prepare the query to insert the new product data into the database
-      // Insert image file name into database
-      //$insert = $db->query("INSERT into images (file_name, uploaded_on) VALUES ('".$fileName."', NOW())");
       $query = "INSERT INTO products (`ProductID`, `ProductName`, `Price`, `ProductType`, `Description`, `AvailableStock`, `Image`)
         VALUES (NULL, '$name', '$price', '$type', '$description', '$stock', '" . $fileName . "');";
       mysqli_query($conn, $query);

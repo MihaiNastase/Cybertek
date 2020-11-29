@@ -2,6 +2,8 @@
   session_start();
 
   include '../PHP/check_login.php'; //check login status for session
+
+  include '../PHP/dbconnect.php';
 ?>
 <!doctype html>
 <html lang="en">
@@ -88,6 +90,63 @@
     </div>
     <div class="hidden-xs col-sm-1 col-md-2"></div>
   </div>
+  <div class="row">
+    <div class="hidden-xs col-sm-1 col-md-2"></div>
+    <div class="col-sm-10 col-md-8">
+    	<div class="dashboard">
+        <table>
+          <tr>
+            <td>
+              <?php //number of total customers + active admins
+                  $result = mysqli_query($conn, "SELECT COUNT(1) FROM `customers`");
+                  $row = mysqli_fetch_array($result);
+                  $total = $row[0];
+                  echo "Total number of customer accounts: " . $total . "<br>";
+                  $result = mysqli_query($conn, "SELECT COUNT(1) FROM `administrators`");
+                  $row = mysqli_fetch_array($result);
+                  $total = $row[0];
+                  echo "Active admins: " . $total;
+              ?>
+            </td>
+            <td>
+              <?php //number of total products
+                $result = mysqli_query($conn, "SELECT COUNT(1) FROM `products`");
+                $row = mysqli_fetch_array($result);
+                $total = $row[0];
+                echo "Total number of individual products: " . $total . "<br>";
+
+                $results = mysqli_query($conn, "SELECT AvailableStock FROM `products`");
+                $totalStock = 0;
+                while($row = mysqli_fetch_assoc($results)){
+                  $totalStock = $totalStock + $row['AvailableStock'];
+                }
+                echo "Total Products in Stock: " . $totalStock;
+              ?>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <?php //total stock as piechart ?>
+            </td>
+            <td>
+              <h3>RESTOCK ALERTS</h3>
+              <?php //stock allerts
+                $results = mysqli_query($conn, "SELECT ProductName, AvailableStock FROM `products`");
+                echo "<ul>";
+                while($row = mysqli_fetch_assoc($results)){
+                  if($row['AvailableStock'] <= 5){
+                    echo "<li>Available stock of < " . $row['ProductName'] . "> is low (" . $row['AvailableStock'] . "units remaining)!</li>";
+                  }
+                }
+                echo "<ul>";
+              ?>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="hidden-xs col-sm-1 col-md-2"></div>
+  </div>
 </div>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -97,5 +156,5 @@
   <script src="../JS/parallax_2.js"></script>
   <script src="../JS/clock.js"></script>
   </body>
-
   </html>
+  <?php $conn -> close(); ?>

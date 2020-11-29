@@ -18,20 +18,53 @@
   $update_status = "";
 //update customer profile
   if(isset($_POST['update_user'])) {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
+    $firstName = mysqli_real_escape_string($conn, $_POST['firstName']);
+    $lastName = mysqli_real_escape_string($conn, $_POST['lastName']);
     $userID = $_SESSION['userID'];
-    $update = "UPDATE customers SET FirstName='$firstName', LastName='$lastName' WHERE UserID ='$userID' ";
-    mysqli_query($conn, $update);
-    $update_status = "Entry Updated!";
-    unset($_POST['update_user']); //unset after query if the form is resumited on page reqest
+    if (empty($firstName) || empty($lastName)){
+      $update_status = "All fields required!";
+    } else {
+      $update = "UPDATE customers SET FirstName='$firstName', LastName='$lastName' WHERE UserID ='$userID' ";
+      mysqli_query($conn, $update);
+      $update_status = "Entry Updated!";
+      unset($_POST['update_user']); //unset after query if the form is resumited on page reqest
+    }
   }
 
 //update product details
   if(isset($_POST['update_product'])) {
-    //TODO
-    $update_status = "Entry Updated!";
-    unset($_POST['update_product']); //unset after query if the form is resumited on page reqest
+    $type = mysqli_real_escape_string($conn, $_POST['productType']);
+    $price = mysqli_real_escape_string($conn, $_POST['price']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $stock = mysqli_real_escape_string($conn, $_POST['stock']);
+    $productID = $_SESSION['productID'];
+
+    //get uploaded fie
+    $targetDir = "../MEDIA/image_upload/";
+    $fileName = basename($_FILES['image']['name']);
+    $targetFilePath = $targetDir . $fileName;
+    $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+
+    $allowTypes = array('jpg','png');
+      if(in_array($fileType, $allowTypes)) {
+          if(move_uploaded_file($_FILES["image"]["tmp_name"], $targetFilePath)) {
+          } else {
+            $update_status = "File upload error!";
+            $fileName = NULL;
+          }
+      }else{
+        $update_status = '.jpg and .png only!';
+        $fileName = NULL;
+      }
+
+    if (empty($type) || empty($price) || empty($description) || empty($stock)){
+      $update_status = "All fields required!";
+    } else {
+      $update = "UPDATE products SET ProductType='$type', Price='$price', Description='$description', AvailableStock='$stock', Image='$fileName' WHERE ProductID ='$productID'";
+      mysqli_query($conn, $update);
+      $update_status = "Entry Updated!";
+      unset($_POST['update_product']); //unset after query if the form is resumited on page reqest
+    }
   }
 
 ?>
@@ -98,13 +131,14 @@
   </div>
   </div>
   </div>
-  <!-- HEADER ENDS HERE -->
+  <!-- HEADER ENDS HERE --------------------------------------------------------------------------->
   <div class="row">
     <div class="hidden-xs col-sm-1 col-md-2"></div>
     <div class="col-sm-10 col-md-8">
 
     	<!-- Display forms here -->
       <?php
+      if($_SESSION['target'] == "profiles"):
         if(!isset($_SESSION['userID'])) : echo "<h1><span style='color:red;'>USER ID NOT FOUND</span></h1>";
           else :
           $query = "SELECT Email, FirstName, LastName FROM customers WHERE UserID =" . $_SESSION['userID'];
@@ -142,12 +176,82 @@
       <?php
           endif;
         endif;
+      endif;
+      ?> <!-- UPDATE CUSTOMER ENDS HERE --------------------------------------------------------------------------->
 
+      <?php
+      if($_SESSION['target'] == "products"):
+        if(!isset($_SESSION['productID'])) : echo "<h1><span style='color:red;'>PRODUCT ID NOT FOUND</span></h1>";
+          else :
+          $query = "SELECT * FROM products WHERE ProductID =" . $_SESSION['productID'];
+          $result = mysqli_query($conn, $query);
+          if($result->num_rows === 0) :
+            echo "<tr><td>No results</td></tr>";
+          else :
+
+            $data = mysqli_fetch_assoc($result);
+            //print form
       ?>
+      <form method="post" action="<?php $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+      <h2><u>Edit Entry: </u><?php echo $update_status; ?></h2>
+      <div class="form-container">
+        <table>
+                    <tr>
+                      <td><label>Name: </label></td>
+                      <td><label><?php echo $data['ProductName']; ?></lable></td>
+                    </tr>
+                    <tr>
+                      <td><label for="pt">Product Type: </label></td>
+                      <td><input type="text" name = "productType" id="pt" value="<?php echo $data['ProductType'];?>"/></td>
+                    </tr>
+                    <tr>
+                      <td><label for="">Price: </label></td>
+                      <td><input type="text" name = "price" id="" value="<?php echo $data['Price'];?>"/></td>
+                    </tr>
+                    <tr>
+                      <td><label for="desc">Description: </label></td>
+                      <td><textarea name = "description" id="desc" ><?php echo $data['Description'];?></textarea></td>
+                    </tr>
+                    <tr>
+                      <td><label for="">Available Stock: </label></td>
+                      <td><input type="text" name = "stock" id="" value="<?php echo $data['AvailableStock'];?>"/></td>
+                    </tr>
+                    <tr>
+                      <td><label for="">Image: </label></td>
+                      <td>
+                        <img src="
+                          <?php
+                            if($data['Image'] == NULL) {
+                              echo "../MEDIA/no-preview-available.png";
+                            } else {
+                              echo "../MEDIA/image_upload/" . $data['Image'];
+                            }
+
+                          ?>
+                        " width="200" height="200">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><label for="img">New Image: </label></td>
+                      <td><input type="file" name = "image" id="img" /></td>
+                    </tr>
+          </table>
+        </div>
+                <button class="btn" type="submit" name="update_product">
+                  <span class="btn__content">Update Entry</span>
+                </button>
+      </form>
+      <?php
+          endif;
+        endif;
+      endif;
+      ?> <!-- UPDATE PRODUCTS ENDS HERE --------------------------------------------------------------------------->
 
     </div>
     <div class="hidden-xs col-sm-1 col-md-2"></div>
   </div>
+
+
 </div>
 
   <!-- Stops form resubmit popup -->
