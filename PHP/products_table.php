@@ -1,6 +1,6 @@
 <?php
   //create query
- $query = "SELECT ProductID, ProductName, Price, ProductType, Description, AvailableStock FROM products ORDER BY ProductID ASC";
+ $query = "SELECT * FROM products ORDER BY ProductID ASC";
  $results = mysqli_query($conn, $query);
 ?>
 <!--CREATE TABLE THAT DISPLAYS ALL CUSTOMERS PROFILES
@@ -20,6 +20,7 @@
       <th>Product Type</th>
       <th>Product Description</th>
       <th>Available Stock</th>
+      <th>Image</th>
       <th></th>
       <th></th>
     </tr>
@@ -40,8 +41,9 @@
           echo "<td>" . $row['ProductName'] . "</td>";
           echo "<td>" . $row['Price'] . "$</td>";
           echo "<td>" . $row['ProductType'] . "</td>";
-          echo "<td>" . $row['Description'] . "</td>";
+          echo "<td><div class='description'>" . $row['Description'] . "</div></td>";
           echo "<td>" . $row['AvailableStock'] . "</td>";
+          if($row['Image'] == NULL) { echo "<td style='color:red;'> Not Set </td>"; } else { echo "<td>Set</td>"; }
           echo "<td><form method='post'><input type='submit' name='update' value='Update'/><input type='hidden' name='productID' value='" . $row['ProductID'] . "'/></form></td>";
           echo "<td><form onsubmit='return confirmAction()' method='post'><input type='submit' name='delete' value='Delete'/><input type='hidden' name='productID' value='" . $row['ProductID'] . "'/></form></td>";
           //
@@ -57,7 +59,6 @@
   </tbody>
 </table>
 </div>
-
 <!--CREATE FORMS THAT ADD PROFILES TO THE DATABASE
   *if the "ADD CUSTOMER PROFILE" button is clicked, then the php code will display a form
   Although I have already created a valid method for adding a customer to the database during registration
