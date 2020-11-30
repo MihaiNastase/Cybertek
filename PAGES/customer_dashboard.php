@@ -136,6 +136,7 @@
     </div>
     <div class="hidden-sm col-md-1 col-lg-2"></div>
   </div>
+  <div class="row"></div>
   <?php
     include '../PHP/display_results.php';
   ?>
