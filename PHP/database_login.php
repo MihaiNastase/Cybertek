@@ -39,6 +39,7 @@ if (isset($_POST['login_user'])) {
 	  	if (mysqli_num_rows($results) == 1) {
 				$user = mysqli_fetch_assoc($results);
 	  	  $_SESSION['name'] = $user['FirstName'];
+				$_SESSION['ID'] = $user['UserID'];
 	  	  $_SESSION['success'] = "You are now logged in";
 	  	  header('location: customer_dashboard.php');
 	  	}else { //if no admin or user is found then push an error into the errors array

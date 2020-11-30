@@ -18,8 +18,8 @@ if($_GET['target'] == "profiles") {
     unset($_POST['userID']); //unset this POST variable to avoid a data leak
     $_SESSION['target'] = "profiles";
     $_SESSION['action'] = "updateProfile";
-    header("location: update_.php");
     unset($_POST['update']); //unset POST variable so the querry is not ran again on page refresh
+    header("location: update_.php");
   }
   if(isset($_POST['delete'])){
     $query = "DELETE FROM customers WHERE UserID='" . $_POST['userID'] . "';";
@@ -35,8 +35,8 @@ if($_GET['target'] == "products") {
     unset($_POST['productID']); //unset this POST variable to avoid a data leak
     $_SESSION['target'] = "products";
     $_SESSION['action'] = "updateProduct";
-    header("location: update_.php");
     unset($_POST['update']); //unset POST variable so the querry is not ran again on page refresh
+    header("location: update_.php");
   }
   if(isset($_POST['delete'])){
     $query = "DELETE FROM products WHERE ProductID='" . $_POST['productID'] . "';";

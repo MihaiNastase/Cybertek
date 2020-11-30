@@ -5,14 +5,6 @@
 
   include '../PHP/dbconnect.php';
 
-  if(isset($_POST['go_to'])){
-    $_SESSION['productID'] = $_POST['productID'];
-    unset($_POST['productID']);
-    header('location: product.php');
-  }
-
-  include '../PHP/parse_query.php';
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -93,75 +85,9 @@
   </div>
   <!-- HEADER STARTS HERE -->
 
-  <div class="row">
-    <div class="hidden-xs col-sm-1 col-md-2"></div>
-    <div class="col-sm-10 col-md-8">
-    	<!-- notification message -->
-    	<?php if (isset($_SESSION['success'])) : ?>
-        <script>
-            <?php
-              $message = $_SESSION['success'];
-              echo "alert('$message');";
-            	unset($_SESSION['success']);
-            ?>
-        </script>
-    	<?php endif ?>
-      <!-- logged in user information -->
-      <?php  if (isset($_SESSION['name'])) : ?>
-      	<h1>Welcome <strong><?php echo $_SESSION['name']; ?></strong> \\_</h1>
-      <?php endif ?>
-    </div>
-    <div class="hidden-xs col-sm-1 col-md-2"></div>
-  </div>
-  <?php
-    $message = "";
-    $check = "SELECT `City`,`AddressFirstLine`,`AddressSecondLine`,`CardNumber`,`ExpiryDate`,`CVS` FROM `customers` WHERE `UserID` = '" . $_SESSION['ID'] . "'";
-    $user_info = mysqli_fetch_assoc(mysqli_query($conn, $check));
-    if($user_info['City'] == NULL || $user_info['AddressFirstLine'] == NULL || $user_info['AddressSecondLine'] == NULL){
-      $message = $message . "<h3>Please complete your billing address in PROFILE_!</h3>";
-    }
-    if($user_info['CardNumber'] == NULL || $user_info['CVS'] == NULL || $user_info['ExpiryDate'] == NULL){
-      $message = $message . "<h3>Please update all your payment details in PROFILE_!</h3>";
-    }
 
-    if($message != "") {
-      echo "<div class='col-12 notification'>" . $message . "</div>";
-    }
-  ?>
-
-  <div class="row">
-    <div class="hidden-sm col-md-1 col-lg-2"></div>
-    <div class="col-xs-12 col-md-10 col-lg-8">
-      <div class="search-bar">
-      <form method="post">
-
-          <select name="priceSort">
-            <option <?php if ($priceSort == 'Sort By Price') { echo "selected='true'";  } ?> value="Sort By Price">Sort By Price</option>
-            <option <?php if ($priceSort == 'Sort Price Ascending') { echo "selected='true'";  } ?> value="Sort Price Ascending">Sort Price Ascending</option>
-            <option <?php if ($priceSort == 'Sort Price Descending') { echo "selected='true'";  } ?> value="Sort Price Descending">Sort Price Descending</option>
-          </select>
-
-          <select name="typeSort">
-            <option <?php if ($typeSort == 'Sort By Type') { echo "selected='true'";  } ?> value="Sort By Type">Sort By Type</option>
-            <option <?php if ($typeSort  == 'Desktop PC') { echo "selected='true'";  } ?> value="Desktop PC">Desktop PC</option>
-            <option <?php if ($typeSort  == 'Accessories') { echo "selected='true'";  } ?> value="Accessories">Accessories</option>
-            <option <?php if ($typeSort  == 'Game Console') { echo "selected='true'";  } ?> value="Game Console">Game Console</option>
-            <option <?php if ($typeSort  == 'Audio') { echo "selected='true'";  } ?> value="Audio">Audio</option>
-          </select>
-
-          <input type="text" name="searchValue" placeholder="Search..." value="<?php echo $searchValue ?>"/>
-          <input type="submit" name="search" value="Search>>"/>
-
-      </form>
-    </div>
-    </div>
-    <div class="hidden-sm col-md-1 col-lg-2"></div>
-  </div>
-  <?php
-    include '../PHP/display_results.php';
-  ?>
   <div class="row footer"></div>
-</div>
+  </div>
 
   <!-- Stops form resubmit popup -->
   <script>
