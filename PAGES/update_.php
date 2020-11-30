@@ -172,6 +172,8 @@
                 <button class="btn" type="submit" name="update_user">
                   <span class="btn__content">Update Entry</span>
                 </button>
+
+                <input type="reset" style="width:100px; height:50px; margin:auto; font-size:2em;">
       </form>
       <?php
           endif;
@@ -240,6 +242,8 @@
                 <button class="btn" type="submit" name="update_product">
                   <span class="btn__content">Update Entry</span>
                 </button>
+
+                <input type="reset" style="width:100px; height:50px; margin:auto; font-size:2em;">
       </form>
       <?php
           endif;
