@@ -72,7 +72,7 @@
             </figure>
 
             <figure>
-              <a href="customer_dashboard.php?logout='1'">
+              <a href="customer_dashboard.php?logout='1'" class="confirmation">
                 <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
                 <figcaption>LOGOUT_</figcaption>
               </a>
@@ -91,7 +91,7 @@
   </div>
   </div>
   </div>
-  <!-- HEADER STARTS HERE -->
+  <!-- HEADER ENDS HERE -->
 
   <div class="row">
     <div class="hidden-xs col-sm-1 col-md-2"></div>
@@ -116,16 +116,18 @@
   <?php
     $message = "";
     $check = "SELECT `City`,`AddressFirstLine`,`AddressSecondLine`,`CardNumber`,`ExpiryDate`,`CVS` FROM `customers` WHERE `UserID` = '" . $_SESSION['ID'] . "'";
-    $user_info = mysqli_fetch_assoc(mysqli_query($conn, $check));
-    if($user_info['City'] == NULL || $user_info['AddressFirstLine'] == NULL || $user_info['AddressSecondLine'] == NULL){
-      $message = $message . "<h3>Please complete your billing address in PROFILE_!</h3>";
-    }
-    if($user_info['CardNumber'] == NULL || $user_info['CVS'] == NULL || $user_info['ExpiryDate'] == NULL){
-      $message = $message . "<h3>Please update all your payment details in PROFILE_!</h3>";
-    }
+    if($user_info = mysqli_fetch_assoc(mysqli_query($conn, $check))){
+      if($user_info['City'] == NULL || $user_info['AddressFirstLine'] == NULL || $user_info['AddressSecondLine'] == NULL){
+        $message = $message . "<h3>Please complete your billing address in PROFILE_!</h3>";
+      }
+      if($user_info['CardNumber'] == NULL || $user_info['CVS'] == NULL || $user_info['ExpiryDate'] == NULL){
+        $message = $message . "<h3>Please provide all your payment details in PROFILE_!</h3>";
+      }
 
-    if($message != "") {
-      echo "<div class='col-12 notification'>" . $message . "</div>";
+      if($message != "") {
+        echo "<div class='col-12 notification'>" . $message . "</div>";
+        $_SESSION['acc_complete'] = FALSE;
+      } else { $_SESSION['acc_complete'] = TRUE; }
     }
   ?>
 
@@ -166,6 +168,14 @@
   <!-- Stops form resubmit popup -->
   <script>
     if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
+
+    var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Are you sure?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
   </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

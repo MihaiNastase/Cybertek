@@ -83,8 +83,17 @@
   </div>
   </div>
   </div>
-  <!-- HEADER STARTS HERE -->
+  <!-- HEADER ENDS HERE -->
 
+  <div class="row">
+    <div class="hidden-xs col-md-1 col-lg-2"></div>
+    <div class="col-xs-12 col-md-10 col-lg-8">
+      <div class="profile-container">
+
+      </div>
+    </div>
+    <div class="hidden-xs col-md-1 cold-lg-2"></div>
+  </div>
 
   <div class="row footer"></div>
   </div>

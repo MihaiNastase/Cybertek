@@ -61,7 +61,14 @@
               </tr>
               <tr>
                 <td><label for="type">Product Type: </label></td>
-                <td><input type="text" name = "productType" id="type"/></td>
+                <td>
+                  <select name="productType" id="type">
+                    <option value="Desktop PC">Desktop PC</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Game Console">Game Console</option>
+                    <option value="Audio">Audio</option>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td><label for="pr">Price: </label></td>
@@ -69,7 +76,7 @@
               </tr>
               <tr>
                 <td><label for="desc">Description: </label></td>
-                <td><textarea name = "description" id="desc">Add description ...</textarea></td>
+                <td><textarea name = "description" id="desc" placeholder="Add description..."></textarea></td>
               </tr>
               <tr>
                 <td><label for="st">Stock: </label></td>

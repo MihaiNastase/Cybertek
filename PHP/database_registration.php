@@ -29,7 +29,7 @@
 	  if ($password != $repassword) { array_push($errors, "The two passwords do not match"); }
 
 	  // first check the database to make sure a user does not already exist with that email
-	  $user_check_query = "SELECT * FROM customers WHERE email='$email' LIMIT 1";
+	  $user_check_query = "SELECT * FROM customers WHERE Email='$email' LIMIT 1";
 	  $result = mysqli_query($conn, $user_check_query);
 	  $user = mysqli_fetch_assoc($result);
 

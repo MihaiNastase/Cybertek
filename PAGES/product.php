@@ -5,6 +5,54 @@
 
   include '../PHP/dbconnect.php';
 
+  $productName = "";
+  $price = "";
+  $productType = "";
+  $description = "";
+  $availableStock = "";
+  $image = "";
+  $alert = "";
+  $userID = $_SESSION['ID'];
+  $ID = $_SESSION['productID'];
+  $query = "SELECT * FROM `products` WHERE `ProductID` = '$ID'";
+  if($product_info = mysqli_fetch_assoc(mysqli_query($conn, $query))){
+    $productName = $product_info['ProductName'];
+    $price = $product_info['Price'];
+    $productType = $product_info['ProductType'];
+    $description = $product_info['Description'];
+    $availableStock = $product_info['AvailableStock'];
+    $image = $product_info['Image'];
+
+    if($image == NULL) {
+      $image = "no-preview-available.png";
+    } else { $image = "/image_upload/" . $image; }
+  }
+
+if(isset($_POST['buy'])){
+  $addUnits = $_POST['units'];
+  if($availableStock < $addUnits) {
+    $alert = "Not enough units in stock";
+  } else {
+    $alert = "Item added to cart";
+    $query = "SELECT `BasketID`, `Amount` FROM `basket` WHERE `UserID` = '$userID' AND `ProductID` = '$ID' LIMIT 1";
+	  $result = mysqli_fetch_assoc(mysqli_query($conn, $query));
+
+
+	  if ($result) { // if that user already has that item in the basket but want to purchase more, update the entry instead of creating new ones
+         $basketID = $result['BasketID'];
+	   	   $newAmount = $result['Amount'] + $_POST['units'];
+         mysqli_query($conn, "UPDATE `basket` SET `Amount` = '$newAmount' WHERE `basket`.`BasketID` = '$basketID';");
+	    } else {
+         mysqli_query($conn, "INSERT INTO `basket` (`BasketID`, `UserID`, `ProductID`, `Amount`) VALUES (NULL, '$userID', '$ID', '$addUnits');");
+      }
+	  }
+  }
+//INSERT INTO `basket` (`BasketID`, `UserID`, `ProductID`, `Amount`) VALUES (NULL, '9', '1', '2');
+
+if($alert != ""){
+  echo "<script> alert('$alert')</script>";
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -64,7 +112,7 @@
             </figure>
 
             <figure>
-              <a href="customer_dashboard.php?logout='1'">
+              <a href="customer_dashboard.php?logout='1'" class="confirmation">
                 <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
                 <figcaption>LOGOUT_</figcaption>
               </a>
@@ -83,8 +131,42 @@
   </div>
   </div>
   </div>
-  <!-- HEADER STARTS HERE -->
+  <!-- HEADER ENDS HERE -->
 
+  <div class="row">
+    <div class="hidden-xs col-md-1 col-lg-2"></div>
+    <div class="col-xs-12 col-md-10 col-lg-8">
+      <div class="profile-container">
+        <div class="row">
+          <div class="col-4">
+            <img src="../MEDIA/<?php echo $image; ?>" style="width:100%; float:none;">
+          </div>
+          <div class="col-8">
+            <div class ="row">
+              <div class ="col-12">
+                <h1><?php echo $productName ?></h1><br>
+                <h2><u><?php echo $productType ?></u></h2><br>
+                <h1><?php echo $price ?>$</h1><br>
+                <h3>Availale: <?php echo $availableStock ?> units</h3>
+                <p><?php echo $description ?></p>
+              </div>
+            </div>
+            <div class ="row">
+              <div class="col-12">
+                <form id="my-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                  <table>
+                    <tr><td><input type="number" value="1" min="1" max="25" name="units"></td>
+                      <td><input type="submit" name="buy" value="Buy"></td></tr>
+                    </table>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hidden-xs col-md-1 cold-lg-2"></div>
+  </div>
 
   <div class="row footer"></div>
   </div>
@@ -92,6 +174,14 @@
   <!-- Stops form resubmit popup -->
   <script>
     if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
+
+    var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Are you sure?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
   </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

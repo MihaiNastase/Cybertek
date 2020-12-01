@@ -1,6 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Barlow|Tomorrow:400,700&display=swap");
 *{box-sizing: border-box;}
 
+input.cvs {
+    -webkit-text-security: disc;
+}
+
+.red {color:red;}
+
 body{
   margin: 0px;
   padding: 0px;
@@ -66,6 +72,30 @@ body{
 .header figure a:hover {
   color: #c9fc00;
 }
+
+.profile-container {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 5px ridge #FAED27;
+}
+
+.profile-container img {
+  width: 30%;
+  float: left;
+  background-color:
+  white; margin: 10px;
+}
+
+.profile-container table, tr, td { border: none !important ; }
+
+.profile-container .btn {width: 50px; }
+
+.basket table tr,td,th { border: 1px solid white !important; text-align: center; padding: 10px;}
+.basket table td, th {width: 25% !important;}
+
 
 .search-bar {
   display: block;
@@ -385,11 +415,19 @@ body{
   clear: both;
 }
 
+input[type=file] {
+  overflow: hidden;
+}
+
 @media only screen and (max-width: 1000px) {
   .header { display: none; }
-  .search-bar { }
-
+  .hamburger {display: block;}
 }
+
+@media only screen and (max-width: 500px) {
+  .profile-container {overflow-x:scroll;}
+}
+
 
 @media only screen and (max-height: 500px) {
   .header { display: none; }

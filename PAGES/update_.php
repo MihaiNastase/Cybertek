@@ -60,7 +60,9 @@
     if (empty($type) || empty($price) || empty($description) || empty($stock)){
       $update_status = "All fields required!";
     } else {
-      $update = "UPDATE products SET ProductType='$type', Price='$price', Description='$description', AvailableStock='$stock', Image='$fileName' WHERE ProductID ='$productID'";
+      if($fileName == "") {
+      $update = "UPDATE products SET ProductType='$type', Price='$price', Description='$description', AvailableStock='$stock' WHERE ProductID ='$productID'";
+    } else { $update = "UPDATE products SET ProductType='$type', Price='$price', Description='$description', AvailableStock='$stock', Image='$fileName' WHERE ProductID ='$productID'"; }
       mysqli_query($conn, $update);
       $update_status = "Entry Updated!";
       unset($_POST['update_product']); //unset after query if the form is resumited on page reqest
@@ -204,7 +206,14 @@
                     </tr>
                     <tr>
                       <td><label for="pt">Product Type: </label></td>
-                      <td><input type="text" name = "productType" id="pt" value="<?php echo $data['ProductType'];?>"/></td>
+                      <td>
+                        <select name = "productType" id="pt">
+                          <option <?php if ($data['ProductType']  == 'Desktop PC') { echo "selected='true'";  } ?> value="Desktop PC">Desktop PC</option>
+                          <option <?php if ($data['ProductType']  == 'Accessories') { echo "selected='true'";  } ?> value="Accessories">Accessories</option>
+                          <option <?php if ($data['ProductType']  == 'Game Console') { echo "selected='true'";  } ?> value="Game Console">Game Console</option>
+                          <option <?php if ($data['ProductType'] == 'Audio') { echo "selected='true'";  } ?> value="Audio">Audio</option>
+                        </select>
+                      </td>
                     </tr>
                     <tr>
                       <td><label for="">Price: </label></td>

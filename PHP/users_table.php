@@ -53,7 +53,7 @@
           } else { echo "<td>" . $row['AddressSecondLine'] . "</td>"; }
           if($row['CardNumber'] == NULL || $row['CardNumber'] == NULL || $row['CardNumber'] == NULL) {
             echo "<td style='color:red;'> Not Set </td>";
-          } else { echo "<td style='color:green;'> Valid </td>"; } 
+          } else { echo "<td style='color:green;'> Valid </td>"; }
           echo "<td><form method='post'><input type='submit' name='update' value='Update'/><input type='hidden' name='userID' value='" . $row['UserID'] . "'/></form></td>";
           echo "<td><form onsubmit='return confirmAction()' method='post'><input type='submit' name='delete' value='Delete'/><input type='hidden' name='userID' value='" . $row['UserID'] . "'/></form></td>";
           //

@@ -56,7 +56,7 @@
             </figure>
 
             <figure>
-              <a href="admin_dashboard.php?logout='1'">
+              <a href="admin_dashboard.php?logout='1'" class="confirmation">
                 <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
                 <figcaption>LOGOUT_</figcaption>
               </a>
@@ -164,6 +164,15 @@
     $(".ratio").css("height", wd + "px")
     console.log(wd);
   }
+
+
+  var elems = document.getElementsByClassName('confirmation');
+    var confirmIt = function (e) {
+        if (!confirm('Are you sure?')) e.preventDefault();
+    };
+    for (var i = 0, l = elems.length; i < l; i++) {
+        elems[i].addEventListener('click', confirmIt, false);
+    }
   </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
