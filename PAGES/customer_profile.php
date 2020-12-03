@@ -3,8 +3,9 @@
 
   include '../PHP/check_login.php'; //check login status for session
 
-  include '../PHP/dbconnect.php';
+  include '../PHP/dbconnect.php'; //connect to database
 
+  //initialise variables for better handling of the query string
   $email = "";
   $firstName = "";
   $lastName = "";
@@ -15,6 +16,7 @@
   $expDate = "";
   $cvs = "";
 
+  //Pass query results into variables
   $ID = $_SESSION['ID'];
   $query = "SELECT * FROM `customers` WHERE `UserID` = '$ID'";
   if($user_info = mysqli_fetch_assoc(mysqli_query($conn, $query))){
@@ -29,6 +31,7 @@
     $cvs = $user_info['CVS'];
   }
 
+
   if(isset($_POST['update_user'])) {
     $city = mysqli_real_escape_string($conn, $_POST['city']);
     $firstLine = mysqli_real_escape_string($conn, $_POST['firstLine']);
@@ -39,7 +42,7 @@
     $userID = $_SESSION['ID'];
       $update = "UPDATE `customers` SET `City`='$city', `AddressFirstLine`='$firstLine', `AddressSecondLine`='$secondLine', `CardNumber`='$cardNumber', `ExpiryDate`='$expDate', `CVS`= '$cvs' WHERE `UserID` = '$userID' ";
       if(!mysqli_query($conn, $update)){echo "Update failed";}
-      unset($_POST['update_user']); //unset after query if the form is resumited on page reqest
+      unset($_POST['update_user']); //unset after query if the form is resubmited on page reqest
   }
 ?>
 <!doctype html>
@@ -67,58 +70,7 @@
   <div class="container-flow">
   <div class="content col-sm-10 col-md-8"></div>
   <!-- HEADER STARTS HERE -->
-  <div class="row">
-    <div class="hidden-xs col-md-12 header">
-      <div class="row">
-
-        <div class="col-2"></div>
-        <div class="col-3">
-          <img src="../MEDIA/landing_page/logo.png" alt="CYBERTEK">
-        </div>
-        <div class="col-6">
-          <div class="menu">
-
-            <figure>
-              <a href="customer_dashboard.php">
-                <img src="../MEDIA/menu_buttons/catalog.png" alt="logout">
-                <figcaption>STORE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_profile.php">
-                <img src="../MEDIA/menu_buttons/profile.png" alt="logout">
-                <figcaption>PROFILE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="contact.php">
-                <img src="../MEDIA/menu_buttons/contact.png" alt="logout">
-                <figcaption>CONTACT_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_dashboard.php?logout='1'" class="confirmation">
-                <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
-                <figcaption>LOGOUT_</figcaption>
-              </a>
-            </figure>
-
-        </div>
-      </div>
-      <div class="col-1">
-        <figure>
-          <a href="shopping_cart.php">
-            <img src="../MEDIA/menu_buttons/cart.png" alt="cart">
-            <figcaption>CART_</figcaption>
-          </a>
-        </figure>
-      </div>
-  </div>
-  </div>
-  </div>
+  <?php include 'customer_header.html'; ?>
   <!-- HEADER ENDS HERE -->
 
   <div class="row">
@@ -194,12 +146,10 @@
   <div class="row footer"></div>
   </div>
 
-
-
-  <!-- Stops form resubmit popup -->
   <script>
+    //Stops form resubmit popup
     if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
-
+    //Display confirm popup on logout
     var elems = document.getElementsByClassName('confirmation');
     var confirmIt = function (e) {
         if (!confirm('Are you sure?')) e.preventDefault();
@@ -207,8 +157,8 @@
     for (var i = 0, l = elems.length; i < l; i++) {
         elems[i].addEventListener('click', confirmIt, false);
     }
-  </script>
-<script> //Simple script to fix the min of the expiry date to today's date
+
+  //Simple script to fix the min of the expiry date to today's date
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth()+1;

@@ -1,6 +1,6 @@
 <?php
   session_start();
-  $ypos = $_COOKIE["ypos"]; //use this to keep scroll position on page request (better accessibility)
+  $ypos = $_COOKIE["ypos"]; //use this to keep scroll position on page request (better accessibility) TODO: to be replaced
 
   include '../PHP/check_login.php'; //check login status for session
 
@@ -11,7 +11,7 @@
   if(isset($_SESSION['target'])) { unset($_SESSION['target']); }
 
 
-//set these actions and queries is the admin selected the profiles section
+//set these actions and queries if the admin selected the profiles section
 if($_GET['target'] == "profiles") {
   if(isset($_POST['update'])){
     $_SESSION['userID'] = $_POST['userID'];
@@ -28,7 +28,7 @@ if($_GET['target'] == "profiles") {
   }
 }
 
-//set these actions and queries is the admin selected the products section
+//set these actions and queries if the admin selected the products section
 if($_GET['target'] == "products") {
   if(isset($_POST['update'])){
     $_SESSION['productID'] = $_POST['productID'];
@@ -109,6 +109,8 @@ if($_GET['target'] == "products") {
   </div>
   </div>
   <!-- HEADER ENDS HERE -->
+
+  <!-- Display tables here -->
   <div class="row">
     <div class="hidden-xs col-sm-1 col-md-2"></div>
     <div class="col-sm-10 col-md-8">
@@ -129,8 +131,8 @@ if($_GET['target'] == "products") {
   </div>
 </div>
 
-  <!-- Stops form resubmit popup -->
   <script>
+    //Stops form resubmit popup
     if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
   </script>
 

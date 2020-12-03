@@ -1,4 +1,4 @@
-<?php
+<? //TODO to be completed
   session_start();
 
   include '../PHP/check_login.php'; //check login status for session
@@ -31,58 +31,7 @@
   <div class="container-flow">
   <div class="content col-sm-10 col-md-8"></div>
   <!-- HEADER STARTS HERE -->
-  <div class="row">
-    <div class="hidden-xs col-md-12 header">
-      <div class="row">
-
-        <div class="col-2"></div>
-        <div class="col-3">
-          <img src="../MEDIA/landing_page/logo.png" alt="CYBERTEK">
-        </div>
-        <div class="col-6">
-          <div class="menu">
-
-            <figure>
-              <a href="customer_dashboard.php">
-                <img src="../MEDIA/menu_buttons/catalog.png" alt="logout">
-                <figcaption>STORE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_profile.php">
-                <img src="../MEDIA/menu_buttons/profile.png" alt="logout">
-                <figcaption>PROFILE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="contact.php">
-                <img src="../MEDIA/menu_buttons/contact.png" alt="logout">
-                <figcaption>CONTACT_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_dashboard.php?logout='1'">
-                <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
-                <figcaption>LOGOUT_</figcaption>
-              </a>
-            </figure>
-
-        </div>
-      </div>
-      <div class="col-1">
-        <figure>
-          <a href="shopping_cart.php">
-            <img src="../MEDIA/menu_buttons/cart.png" alt="cart">
-            <figcaption>CART_</figcaption>
-          </a>
-        </figure>
-      </div>
-  </div>
-  </div>
-  </div>
+  <?php include 'customer_header.html'; ?>
   <!-- HEADER ENDS HERE -->
 
   <div class="row">
@@ -98,8 +47,8 @@
   <div class="row footer"></div>
   </div>
 
-  <!-- Stops form resubmit popup -->
   <script>
+  //Stops form resubmit popup
     if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
   </script>
 

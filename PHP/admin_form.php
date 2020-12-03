@@ -1,4 +1,4 @@
-<?php
+<?php //display the appropriate update forms (from the inlcude statement on line 120 in PHP/users_table.php)
   if(!isset($_GET['action'])) { $_GET['action'] = "";}
   $error = "";
   if($_GET['action'] == "addCustomer"){

@@ -3,8 +3,9 @@
 
   include '../PHP/check_login.php'; //check login status for session
 
-  include '../PHP/dbconnect.php';
+  include '../PHP/dbconnect.php'; //connect to database
 
+//initialise variables for better handling of the query string
   $productName = "";
   $price = "";
   $productType = "";
@@ -28,17 +29,18 @@
     } else { $image = "/image_upload/" . $image; }
   }
 
+//When pressing on the BUY button, first check if demanded units exceed available stock
 if(isset($_POST['buy'])){
-  $addUnits = $_POST['units'];
+  $addUnits = mysqli_real_escape_string($conn, $_POST['units']);
   if($availableStock < $addUnits) {
     $alert = "Not enough units in stock";
   } else {
     $alert = "Item added to cart";
-    $query = "SELECT `BasketID`, `Amount` FROM `basket` WHERE `UserID` = '$userID' AND `ProductID` = '$ID' LIMIT 1";
+    $query = "SELECT `BasketID`, `Amount` FROM `basket` WHERE `UserID` = '$userID' AND `ProductID` = '$ID' LIMIT 1"; //query the database to see if the user already has that item in their cart
 	  $result = mysqli_fetch_assoc(mysqli_query($conn, $query));
 
-
-	  if ($result) { // if that user already has that item in the basket but want to purchase more, update the entry instead of creating new ones
+    // if that user already has that item in the cart but want to purchase more, update the entry instead of creating new ones
+	  if ($result) {
          $basketID = $result['BasketID'];
 	   	   $newAmount = $result['Amount'] + $_POST['units'];
          mysqli_query($conn, "UPDATE `basket` SET `Amount` = '$newAmount' WHERE `basket`.`BasketID` = '$basketID';");
@@ -49,7 +51,7 @@ if(isset($_POST['buy'])){
   }
 //INSERT INTO `basket` (`BasketID`, `UserID`, `ProductID`, `Amount`) VALUES (NULL, '9', '1', '2');
 
-if($alert != ""){
+if($alert != ""){ //display alert if demand exceeds stock
   echo "<script> alert('$alert')</script>";
 }
 
@@ -79,60 +81,10 @@ if($alert != ""){
   <div class="container-flow">
   <div class="content col-sm-10 col-md-8"></div>
   <!-- HEADER STARTS HERE -->
-  <div class="row">
-    <div class="hidden-xs col-md-12 header">
-      <div class="row">
-
-        <div class="col-2"></div>
-        <div class="col-3">
-          <img src="../MEDIA/landing_page/logo.png" alt="CYBERTEK">
-        </div>
-        <div class="col-6">
-          <div class="menu">
-
-            <figure>
-              <a href="customer_dashboard.php">
-                <img src="../MEDIA/menu_buttons/catalog.png" alt="logout">
-                <figcaption>STORE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_profile.php">
-                <img src="../MEDIA/menu_buttons/profile.png" alt="logout">
-                <figcaption>PROFILE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="contact.php">
-                <img src="../MEDIA/menu_buttons/contact.png" alt="logout">
-                <figcaption>CONTACT_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_dashboard.php?logout='1'" class="confirmation">
-                <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
-                <figcaption>LOGOUT_</figcaption>
-              </a>
-            </figure>
-
-        </div>
-      </div>
-      <div class="col-1">
-        <figure>
-          <a href="shopping_cart.php">
-            <img src="../MEDIA/menu_buttons/cart.png" alt="cart">
-            <figcaption>CART_</figcaption>
-          </a>
-        </figure>
-      </div>
-  </div>
-  </div>
-  </div>
+  <?php include 'customer_header.html'; ?>
   <!-- HEADER ENDS HERE -->
 
+  <!-- Display product details -->
   <div class="row">
     <div class="hidden-xs col-md-1 col-lg-2"></div>
     <div class="col-xs-12 col-md-10 col-lg-8">
@@ -171,10 +123,11 @@ if($alert != ""){
   <div class="row footer"></div>
   </div>
 
-  <!-- Stops form resubmit popup -->
   <script>
+    //Stops form resubmit popup
     if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
 
+    //Display confirm popup on logout
     var elems = document.getElementsByClassName('confirmation');
     var confirmIt = function (e) {
         if (!confirm('Are you sure?')) e.preventDefault();

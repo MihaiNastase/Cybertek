@@ -45,12 +45,15 @@
 
 		//prepare the query to insert the new customer data into the database
   	$query = "INSERT INTO customers (`UserID`, `Email`, `FirstName`, `LastName`, `Password`, `City`, `AddressFirstLine`, `AddressSecondLine`, `CardNumber`, `ExpiryDate`, `CVS`)
-	      VALUES (NULL, '$email', '$firstName', '$lastName', '$password', NULL, NULL, NULL, NULL, NULL, NULL)"; //this fields remain NULL untill a customer updates his credential after login
+	      VALUES (NULL, '$email', '$firstName', '$lastName', '$password', NULL, NULL, NULL, NULL, NULL, NULL);"; //these fields remain NULL untill a customer updates his credential after login
   	mysqli_query($conn, $query);
 		//Log in the customers and continue the session
+		$query = "SELECT `UserID` FROM `customers` WHERE `Email` = '$email';";
+  	$result = mysqli_fetch_assoc(mysqli_query($conn, $query));
   	$_SESSION['name'] = $firstName;
+		$_SESSION['ID'] = $result['UserID'];
   	$_SESSION['success'] = "LOG//ON//SUCCESS_";
-  	header('location: customer.php');
+  	header('location: customer_dashboard.php');
   }
 }
 

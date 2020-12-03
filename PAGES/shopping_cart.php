@@ -3,22 +3,23 @@
 
   include '../PHP/check_login.php'; //check login status for session
 
-  include '../PHP/dbconnect.php';
+  include '../PHP/dbconnect.php'; //connect to database
 
   $userID = $_SESSION['ID'];
 
   $query = "SELECT * FROM `basket` WHERE `UserID`='$userID'";
   $results = mysqli_query($conn, $query);
 
-
-  $productsToBuy = [];
-  $total = [];
+  $alert = "";
+  $productsToBuy = []; //tihs array will hold the ID and amount pair (key => value) used to update the database product stocks on a successfull purchase
+  $total = []; //will be used to display the total of all the items in the basket
   //$_SESSION['acc_complete']
 
   if(isset($_POST['BUY'])){
-    if($_SESSION['acc_complete']){
+    if($_SESSION['acc_complete']){ //A user can complete their purchase only if they provided thei billing information
       if($_POST['alert']==""){
         $data = unserialize($_POST['data']);
+        //Update product and basket tables
         foreach ($data as $key => $value) {
           $adjustStock = "UPDATE `products` SET `AvailableStock`= `AvailableStock` - '$value' WHERE `ProductID` = '$key' ;";
           $emptyBasket = "DELETE FROM `basket` WHERE `UserID` = '$userID' AND `ProductID` = '$key' ;";
@@ -30,8 +31,7 @@
     } else { echo "<script> alert('Please complete billing and payment info!')</script>"; }
   }
 
-  $alert = "";
-
+  //remove listing from basket
   if(isset($_POST['remove'])) {
     $entry = $_POST['entry'];
     $remove = "DELETE FROM `basket` WHERE `BasketID` = '$entry'";
@@ -66,60 +66,11 @@
   <div class="container-flow">
   <div class="content col-sm-10 col-md-8"></div>
   <!-- HEADER STARTS HERE -->
-  <div class="row">
-    <div class="hidden-xs col-md-12 header">
-      <div class="row">
-
-        <div class="col-2"></div>
-        <div class="col-3">
-          <img src="../MEDIA/landing_page/logo.png" alt="CYBERTEK">
-        </div>
-        <div class="col-6">
-          <div class="menu">
-
-            <figure>
-              <a href="customer_dashboard.php">
-                <img src="../MEDIA/menu_buttons/catalog.png" alt="logout">
-                <figcaption>STORE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_profile.php">
-                <img src="../MEDIA/menu_buttons/profile.png" alt="logout">
-                <figcaption>PROFILE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="contact.php">
-                <img src="../MEDIA/menu_buttons/contact.png" alt="logout">
-                <figcaption>CONTACT_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_dashboard.php?logout='1'" class="confirmation">
-                <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
-                <figcaption>LOGOUT_</figcaption>
-              </a>
-            </figure>
-
-        </div>
-      </div>
-      <div class="col-1">
-        <figure>
-          <a href="shopping_cart.php">
-            <img src="../MEDIA/menu_buttons/cart.png" alt="cart">
-            <figcaption>CART_</figcaption>
-          </a>
-        </figure>
-      </div>
-  </div>
-  </div>
-  </div>
+  <?php include 'customer_header.html'; ?>
   <!-- HEADER ENDS HERE -->
 
+
+  <!-- Display table containing all the products, their quantity and total price that are in the shopping basket -->
   <div class="row">
     <div class="hidden-xs col-md-1 col-lg-2"></div>
     <div class="col-xs-12 col-md-10 col-lg-8">
@@ -136,13 +87,15 @@
         </thead>
         <tbody>
         <?php
-          while($row = mysqli_fetch_assoc($results)){
-            $productID = $row['ProductID'];
+          while($row = mysqli_fetch_assoc($results)){ //databased queried on line 11
+            $productID = $row['ProductID']; //get the details of all the products in the basket based on their individual ID
             $product = mysqli_fetch_assoc(mysqli_query($conn, "SELECT `ProductName`, `Price`, `AvailableStock` FROM `products` WHERE `ProductID` = '$productID';"));
             array_push($total, ($row['Amount'] * $product['Price']));
-            $productsToBuy[$productID] = $row['Amount'];
+            $productsToBuy[$productID] = $row['Amount'];//store in the array the key/value pair
+            //check to see if meantime the available stocks of the products have changed and act accordingly
             if($row['Amount']>$product['AvailableStock']){
-              $alert = "Some products in your basket are not in stock anymore!";
+              $alert = "Some products in your basket are not in stock anymore!"; //display error message
+              //display all the entries that exeed stock with a red font
               echo "<tr class='red'><td>" . $product['ProductName'] . "</td><td>" . $row['Amount'] . "</td><td>" . $row['Amount'] * $product['Price'] . "$</td><td>" .
               "<form method='post' action='" . $_SERVER['PHP_SELF'] . "'><input type='submit' name='remove' value='Remove'><input type='hidden' name='entry' value='" . $row['BasketID'] .  "'></form></td></tr>";
             } else {
@@ -154,7 +107,10 @@
 
         <tr>
           <td colspan="2">TOTAL:</td>
-          <td> <?php echo array_sum($total); $dataString = htmlspecialchars(serialize($productsToBuy)); ?></td>
+          <td> <?php echo array_sum($total);
+                  $dataString = htmlspecialchars(serialize($productsToBuy)); //serialise array in order to send it through post
+                  ?>
+              </td>
           <td><form method='post' action="<?php echo $_SERVER['PHP_SELF']; ?>"><input type='submit' name='BUY' value='Buy'>
             <input type='hidden' name='data' value="<?php echo $dataString; ?>">
             <input type='hidden' name='alert' value="<?php echo $alert; ?>"></form></td>
@@ -169,10 +125,11 @@
   <div class="row footer"></div>
   </div>
 
-  <!-- Stops form resubmit popup -->
   <script>
+    //Stops form resubmit popup
     if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
 
+    //Display confirm popup on user logout
     var elems = document.getElementsByClassName('confirmation');
     var confirmIt = function (e) {
         if (!confirm('Are you sure?')) e.preventDefault();

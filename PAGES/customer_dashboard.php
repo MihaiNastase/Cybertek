@@ -3,14 +3,16 @@
 
   include '../PHP/check_login.php'; //check login status for session
 
-  include '../PHP/dbconnect.php';
+  include '../PHP/dbconnect.php'; //connect to database
 
+  //check if a product was clicked on
   if(isset($_POST['go_to'])){
-    $_SESSION['productID'] = $_POST['productID'];
-    unset($_POST['productID']);
-    header('location: product.php');
+    $_SESSION['productID'] = $_POST['productID']; //get the id of the product that should be displayed on the next page
+    unset($_POST['productID']); //unset the POST variable to avoid displaying wrong product
+    header('location: product.php'); //take user the the page that displays information regarding desired product
   }
 
+  //Search bar:
   include '../PHP/parse_query.php';
 
 ?>
@@ -39,58 +41,7 @@
   <div class="container-flow">
   <div class="content col-sm-10 col-md-8"></div>
   <!-- HEADER STARTS HERE -->
-  <div class="row">
-    <div class="hidden-xs col-md-12 header">
-      <div class="row">
-
-        <div class="col-2"></div>
-        <div class="col-3">
-          <img src="../MEDIA/landing_page/logo.png" alt="CYBERTEK">
-        </div>
-        <div class="col-6">
-          <div class="menu">
-
-            <figure>
-              <a href="customer_dashboard.php">
-                <img src="../MEDIA/menu_buttons/catalog.png" alt="logout">
-                <figcaption>STORE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_profile.php">
-                <img src="../MEDIA/menu_buttons/profile.png" alt="logout">
-                <figcaption>PROFILE_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="contact.php">
-                <img src="../MEDIA/menu_buttons/contact.png" alt="logout">
-                <figcaption>CONTACT_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="customer_dashboard.php?logout='1'" class="confirmation">
-                <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
-                <figcaption>LOGOUT_</figcaption>
-              </a>
-            </figure>
-
-        </div>
-      </div>
-      <div class="col-1">
-        <figure>
-          <a href="shopping_cart.php">
-            <img src="../MEDIA/menu_buttons/cart.png" alt="cart">
-            <figcaption>CART_</figcaption>
-          </a>
-        </figure>
-      </div>
-  </div>
-  </div>
-  </div>
+  <?php include 'customer_header.html'; ?>
   <!-- HEADER ENDS HERE -->
 
   <div class="row">
@@ -113,7 +64,9 @@
     </div>
     <div class="hidden-xs col-sm-1 col-md-2"></div>
   </div>
-  <?php
+
+
+  <?php //display notification messages below the header, stating if the user has completed his/her account with the relevant information
     $message = "";
     $check = "SELECT `City`,`AddressFirstLine`,`AddressSecondLine`,`CardNumber`,`ExpiryDate`,`CVS` FROM `customers` WHERE `UserID` = '" . $_SESSION['ID'] . "'";
     if($user_info = mysqli_fetch_assoc(mysqli_query($conn, $check))){
@@ -123,7 +76,7 @@
       if($user_info['CardNumber'] == NULL || $user_info['CVS'] == NULL || $user_info['ExpiryDate'] == NULL){
         $message = $message . "<h3>Please provide all your payment details in PROFILE_!</h3>";
       }
-
+      //if the selected fields are not set, display the specific messages
       if($message != "") {
         echo "<div class='col-12 notification'>" . $message . "</div>";
         $_SESSION['acc_complete'] = FALSE;
@@ -131,18 +84,19 @@
     }
   ?>
 
+  <!-- Search bar: display the search bar, this ties into the include statement on line 16 -->
   <div class="row">
     <div class="hidden-sm col-md-1 col-lg-2"></div>
     <div class="col-xs-12 col-md-10 col-lg-8">
       <div class="search-bar">
       <form method="post">
-
+          <!-- Display the options for the price sort as a dropdown list; after a search, do not reset the search parameters, remeber what was searched -->
           <select name="priceSort">
             <option <?php if ($priceSort == 'Sort By Price') { echo "selected='true'";  } ?> value="Sort By Price">Sort By Price</option>
             <option <?php if ($priceSort == 'Sort Price Ascending') { echo "selected='true'";  } ?> value="Sort Price Ascending">Sort Price Ascending</option>
             <option <?php if ($priceSort == 'Sort Price Descending') { echo "selected='true'";  } ?> value="Sort Price Descending">Sort Price Descending</option>
           </select>
-
+          <!-- Display the options for the type sort as a dropdown list; after a search, do not reset the search parameters, remeber what was searched -->
           <select name="typeSort">
             <option <?php if ($typeSort == 'Sort By Type') { echo "selected='true'";  } ?> value="Sort By Type">Sort By Type</option>
             <option <?php if ($typeSort  == 'Desktop PC') { echo "selected='true'";  } ?> value="Desktop PC">Desktop PC</option>
@@ -150,7 +104,7 @@
             <option <?php if ($typeSort  == 'Game Console') { echo "selected='true'";  } ?> value="Game Console">Game Console</option>
             <option <?php if ($typeSort  == 'Audio') { echo "selected='true'";  } ?> value="Audio">Audio</option>
           </select>
-
+          <!-- Search for a product by name -->
           <input type="text" name="searchValue" placeholder="Search..." value="<?php echo $searchValue ?>"/>
           <input type="submit" name="search" value="Search>>"/>
 
@@ -160,15 +114,17 @@
     <div class="hidden-sm col-md-1 col-lg-2"></div>
   </div>
   <?php
+    //display products based on the query from the code included on line 16
     include '../PHP/display_results.php';
   ?>
   <div class="row footer"></div>
 </div>
 
-  <!-- Stops form resubmit popup -->
   <script>
+    //Stops form resubmit popup
     if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
 
+    //display confirm popup on logout attempt
     var elems = document.getElementsByClassName('confirmation');
     var confirmIt = function (e) {
         if (!confirm('Are you sure?')) e.preventDefault();

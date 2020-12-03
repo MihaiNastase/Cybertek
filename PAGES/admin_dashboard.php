@@ -3,7 +3,7 @@
 
   include '../PHP/check_login.php'; //check login status for session
 
-  include '../PHP/dbconnect.php';
+  include '../PHP/dbconnect.php'; //connect to mysql database
 ?>
 <!doctype html>
 <html lang="en">
@@ -92,6 +92,8 @@
     </div>
     <div class="hidden-xs col-sm-1 col-md-2"></div>
   </div>
+
+  <!-- Display dashboard -->
   <div class="row">
     <div class="hidden-xs col-sm-1 col-md-2"></div>
     <div class="col-sm-10 col-md-8">
@@ -130,7 +132,7 @@
             <td colspan="2">
               <table>
                 <tr>
-                  <td class='ratio'>Chart goes here</td>
+                  <td class='ratio'>Chart goes here</td> <!--TODO-->
                   <td class='ratio stock-alert'>
                     <h3>RESTOCK ALERTS</h3>
                     <?php //stock allerts
@@ -158,14 +160,14 @@
   <script>
   $(document).ready(chHeight());
   $(document).resize(chHeight());
-
+  //set height of table cells to be equal to their width
   function chHeight(){
     const wd = $(".ratio").width();
     $(".ratio").css("height", wd + "px")
     console.log(wd);
   }
 
-
+  //display confirmation message before admin logout
   var elems = document.getElementsByClassName('confirmation');
     var confirmIt = function (e) {
         if (!confirm('Are you sure?')) e.preventDefault();

@@ -111,12 +111,12 @@ $results = mysqli_query($conn, $query);
 <!--CREATE FORMS THAT ADD PROFILES TO THE DATABASE
   *if the "ADD CUSTOMER PROFILE" button is clicked, then the php code will display a form
   Although I have already created a valid method for adding a customer to the database during registration
-  for this form I will need something more lightweight and all contained withing the same php code
+  for this form I will need something more lightweight and all contained within the same php code
 -->
 <div class = "row">
   <div class = "col-12">
     <?php
-      //Here I reused the same script for adding either products or admins or customers to make the code cleaner
+      //Here I used a "switch" for adding either products or admins or customers to make the code cleaner
       include 'admin_form.php';
     ?>
   </div>

@@ -1,5 +1,5 @@
 
-<?php
+<?php //used to display errors on the login page
  $alert = "";
  if(count($errors) > 0) {
    $alert = '<div class="errors" id="fail">';
