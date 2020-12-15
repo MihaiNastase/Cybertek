@@ -1,0 +1,46 @@
+
+<div class="footer">
+  <div class="row">
+    <div class="hidden-sm col-md-2"></div>
+    <div class="col-sm-12 col-md-4">
+
+      <h3>\_CYBERTEK_/</h3>
+      <p>
+        The best source <br>
+        of cutting edge technology
+      <p>
+      <p>
+        &copy; 2020 Mihai Nastase
+      </p>
+
+    </div>
+    <div class="hidden-sm col-md-4">
+      <h3>Assignment realised for <br> Birmingham City University</h3>
+      <ul>
+        <li>University House</li>
+        <li>15 Bartholomew Row</li>
+        <li>Birmingham</li>
+        <li>B5 5JU</li>
+        <li>United Kingdom</li>
+        <li>Tel: +44 (0)121 331 5000</li>
+      <ul>
+
+    </div>
+    <div class="hidden-sm col-md-2"></div>
+  </div>
+</div>
+
+<script> //this script makes sure that the footer stay at the bottom of the pages, without having to modify entire structure of the html code
+  //I i
+  var height = window.innerHeight;
+  var maxHeight = document.body.scrollHeight;
+  console.log(height + " : " + maxHeight);
+  var footer = document.querySelector(".footer");
+  if(height > maxHeight) {
+    console.log("position: absolute");
+    footer.style.position="absolute";
+  } else {
+    console.log("position: relative");
+    footer.style.position="relative";
+  }
+</script>

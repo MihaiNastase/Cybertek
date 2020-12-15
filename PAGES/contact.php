@@ -29,28 +29,25 @@
   <div id="parallax_2"></div>
 
   <div class="container-flow">
-  <div class="content col-sm-10 col-md-8"></div>
-  <!-- HEADER STARTS HERE -->
-  <?php include 'customer_header.html'; ?>
-  <!-- HEADER ENDS HERE -->
+    <div class="content col-sm-10 col-md-8"></div>
+    <!-- HEADER STARTS HERE -->
+    <?php include 'customer_header.html'; ?>
+    <?php include 'customer_hamburger.html'; ?>
+    <!-- HEADER ENDS HERE -->
 
-  <div class="row">
-    <div class="hidden-xs col-md-1 col-lg-2"></div>
-    <div class="col-xs-12 col-md-10 col-lg-8">
-      <div class="profile-container">
+    <div class="row">
+      <div class="hidden-xs col-md-1 col-lg-2"></div>
+      <div class="col-xs-6 col-md-5 col-lg-4">
 
       </div>
+      <div class="col-xs-6 col-md-5 col-lg-4">
+
+      </div>
+      <div class="hidden-xs col-md-1 cold-lg-2"></div>
     </div>
-    <div class="hidden-xs col-md-1 cold-lg-2"></div>
-  </div>
 
-  <div class="row footer"></div>
+    <?php include 'footer.html'; ?>
   </div>
-
-  <script>
-  //Stops form resubmit popup
-    if ( window.history.replaceState ) { window.history.replaceState( null, null, window.location.href ); }
-  </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -60,4 +57,3 @@
   </body>
 
   </html>
-<?php $conn -> close(); ?>

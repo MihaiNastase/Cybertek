@@ -7,6 +7,11 @@ input.cvs {
 
 .red {color:red;}
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 body{
   margin: 0px;
   padding: 0px;
@@ -47,24 +52,24 @@ body{
   display: inline-block;
 }
 
-.menu  figure {
+.header .menu  figure {
     display: inline-block;
     width: 24%;
     margin: 0;
     padding: 0;
 }
 
-.menu figure img {
+.header .menu figure img {
     vertical-align: top;
     height: auto;
     width: 36%;
 }
 
-.menu figure figcaption {
+.header .menu figure figcaption {
     text-align: center;
 }
 
-.header figure a {
+figure a {
   text-decoration: none;
   color: #7df9ff;
 }
@@ -73,6 +78,35 @@ body{
   color: #c9fc00;
 }
 
+.hamburger {
+  display: none;
+  width: 100vh;
+  height: auto;
+}
+
+.hamburger img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.hamburger .menu {
+  overflow: hidden;
+  max-height: 100vh;
+  background-color: #666666;
+  border-top: 10px dashed #ffff00;
+}
+
+.hamburger .menu img{
+  width: calc(100vh/6);
+}
+
+.hamburger .menu figure{
+  width: auto;
+}
 .profile-container {
   display: block;
   overflow: hidden;
@@ -419,15 +453,37 @@ input[type=file] {
   overflow: hidden;
 }
 
+/* Custom footer */
+.footer {
+  padding: 20px;
+  overflow: visible;
+  width: 100vw;
+  min-height: 200px;
+  background-color: black;
+  text-align: center;
+  clip-path: polygon(85% 0%, 0% 0%, 0% 35%, 10% 35%, 15% 5%, 25% 5%, 20% 36%, 0% 35%, 0% 70%, 0% 100%, 100% 100%, 100% 15%);
+  margin-top: 75px;
+  left: 0;
+  bottom: 0;
+}
+
 @media only screen and (max-width: 1000px) {
   .header { display: none; }
   .hamburger {display: block;}
+  body {font-size: 1em;}
 }
 
 @media only screen and (max-width: 500px) {
   .profile-container {overflow-x:scroll;}
+  body {font-size: 0.7em;}
+  h1 {font-size: 1rem;}
+  h2 {font-size: 0.9rem;}
+  h3 {font-size: 1rem;}
 }
 
+@media only screen and (max-height: 800px) {
+  .footer {position: relative;}
+}
 
 @media only screen and (max-height: 500px) {
   .header { display: none; }

@@ -11,7 +11,7 @@
   $results = mysqli_query($conn, $query);
 
   $alert = "";
-  $productsToBuy = []; //tihs array will hold the ID and amount pair (key => value) used to update the database product stocks on a successfull purchase
+  $productsToBuy = []; //this array will hold the ID and amount pair (key => value) used to update the database product stocks on a successfull purchase
   $total = []; //will be used to display the total of all the items in the basket
   //$_SESSION['acc_complete']
 
@@ -67,6 +67,7 @@
   <div class="content col-sm-10 col-md-8"></div>
   <!-- HEADER STARTS HERE -->
   <?php include 'customer_header.html'; ?>
+  <?php include 'customer_hamburger.html'; ?>
   <!-- HEADER ENDS HERE -->
 
 
@@ -122,7 +123,7 @@
     <div class="hidden-xs col-md-1 cold-lg-2"></div>
   </div>
 
-  <div class="row footer"></div>
+  <?php include 'footer.html'; ?>
   </div>
 
   <script>

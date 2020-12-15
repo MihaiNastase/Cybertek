@@ -71,6 +71,7 @@
   <div class="content col-sm-10 col-md-8"></div>
   <!-- HEADER STARTS HERE -->
   <?php include 'customer_header.html'; ?>
+  <?php include 'customer_hamburger.html'; ?>
   <!-- HEADER ENDS HERE -->
 
   <div class="row">
@@ -143,7 +144,7 @@
       <div class="hidden-xs col-md-1 cold-lg-2"></div>
     </div>
   </form>
-  <div class="row footer"></div>
+  <?php include 'footer.html'; ?>
   </div>
 
   <script>

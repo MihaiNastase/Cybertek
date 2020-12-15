@@ -1,6 +1,5 @@
 <?php
   session_start();
-  $ypos = $_COOKIE["ypos"]; //use this to keep scroll position on page request (better accessibility) TODO: to be replaced
 
   include '../PHP/check_login.php'; //check login status for session
 
@@ -62,7 +61,7 @@ if($_GET['target'] == "products") {
     </style>
 </head>
 <!--this solution for fixing scroll position does not work properly, find replacement-->
-<body <?php echo "onScroll=\"document.cookie='$ypos=' + window.pageYOffset\" onLoad='window.scrollTo(0,$ypos)'"; ?> >
+<body>
   <div id="parallax_2"></div>
 
   <div class="container-flow">
@@ -126,9 +125,7 @@ if($_GET['target'] == "products") {
     </div>
     <div class="hidden-xs col-sm-1 col-md-2"></div>
   </div>
-  <div class="row">
-
-  </div>
+  <?php include 'footer.html'; ?>
 </div>
 
   <script>

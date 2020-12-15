@@ -155,6 +155,7 @@
     </div>
     <div class="hidden-xs col-sm-1 col-md-2"></div>
   </div>
+  <?php include 'footer.html'; ?>
 </div>
 
   <script>

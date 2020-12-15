@@ -42,6 +42,7 @@
   <div class="content col-sm-10 col-md-8"></div>
   <!-- HEADER STARTS HERE -->
   <?php include 'customer_header.html'; ?>
+  <?php include 'customer_hamburger.html'; ?>
   <!-- HEADER ENDS HERE -->
 
   <div class="row">
@@ -115,9 +116,8 @@
   </div>
   <?php
     //display products based on the query from the code included on line 16
-    include '../PHP/display_results.php';
-  ?>
-  <div class="row footer"></div>
+    include '../PHP/display_results.php';?>
+  <?php include 'footer.html'; ?>
 </div>
 
   <script>

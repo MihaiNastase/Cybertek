@@ -26,7 +26,7 @@ if (isset($_POST['login_user'])) {
 
   if (count($errors) == 0) {
   	$password = md5($password);
-  	$query = "SELECT * FROM administrators WHERE Name='$email' AND Password='$password'";
+  	$query = "SELECT * FROM `administrators` WHERE `Name`='$email' AND `Password`='$password' ;";
   	$results = mysqli_query($conn, $query); //first query the administrators table to see if is an admin logging in
 		if (mysqli_num_rows($results) == 1) {
 			$user = mysqli_fetch_assoc($results);
