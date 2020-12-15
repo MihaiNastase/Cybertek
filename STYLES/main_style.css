@@ -453,6 +453,27 @@ input[type=file] {
   overflow: hidden;
 }
 
+.contact {
+  text-align: center;
+  font-size: 2em;
+  position: relative;
+  overflow: hidden;
+}
+.contact img {
+  width: 100%;
+  height: auto;
+}
+.img-magnifier-glass {
+  position: absolute;
+  border: 3px solid #000;
+  cursor: none;
+  /*Set the size of the magnifier glass:*/
+  width: 15vw;
+  height: 15vw;
+
+  background-image: url("../MEDIA/map.png");
+}
+
 /* Custom footer */
 .footer {
   padding: 20px;

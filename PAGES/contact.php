@@ -23,6 +23,8 @@
     <title>CATALOG_</title>
     <style>
     </style>
+    <script src="../JS/magnifier.js">
+    </script>
 </head>
 
 <body>
@@ -35,19 +37,32 @@
     <?php include 'customer_hamburger.html'; ?>
     <!-- HEADER ENDS HERE -->
 
-    <div class="row">
+    <div class="row contact">
       <div class="hidden-xs col-md-1 col-lg-2"></div>
-      <div class="col-xs-6 col-md-5 col-lg-4">
-
+      <div class="col-xs-12 col-md-4 col-lg-3">
+        <p>
+          Reach us with an email at <a href="mailto:CyberTek@mail.com">CyberTek@mail.com</a> <br>
+          OR <br>
+          Via Phone at 077 7777 777 <br>
+          <h2>Address:</h2>
+          <ul>
+            <li> Night City </li>
+            <li> 07 Crane Road </li>
+            <li> Kabuki Quarter </li>
+          </ul>
+        </p>
       </div>
-      <div class="col-xs-6 col-md-5 col-lg-4">
-
+      <div class="col-xs-12 col-md-6 col-lg-5">
+        <img id="cityMap" src="../MEDIA/map.png" >
       </div>
       <div class="hidden-xs col-md-1 cold-lg-2"></div>
     </div>
 
     <?php include 'footer.html'; ?>
   </div>
+  <script>
+    magnify(3);
+  </script>
 
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
