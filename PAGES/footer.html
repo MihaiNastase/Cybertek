@@ -31,16 +31,18 @@
 </div>
 
 <script> //this script makes sure that the footer stay at the bottom of the pages, without having to modify entire structure of the html code
-  //I i
-  var height = window.innerHeight;
-  var maxHeight = document.body.scrollHeight;
-  console.log(height + " : " + maxHeight);
-  var footer = document.querySelector(".footer");
-  if(height > maxHeight) {
-    console.log("position: absolute");
-    footer.style.position="absolute";
-  } else {
-    console.log("position: relative");
-    footer.style.position="relative";
-  }
+    (() => {
+      var height = window.innerHeight;
+      var maxHeight = document.body.scrollHeight;
+      console.log(height + " : " + maxHeight);
+      var footer = document.querySelector(".footer");
+      if(height >= maxHeight) {
+        console.log("position: absolute");
+        footer.style.position="absolute";
+      } else {
+        console.log("position: relative");
+        footer.style.position="relative";
+      }
+    })();
+
 </script>

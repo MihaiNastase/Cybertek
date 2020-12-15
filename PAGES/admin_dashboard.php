@@ -94,7 +94,6 @@
             <td colspan="2">
               <table>
                 <tr>
-                  <td class='ratio'>Chart goes here</td> <!--TODO-->
                   <td class='ratio stock-alert'>
                     <h3>RESTOCK ALERTS</h3>
                     <?php //stock allerts

@@ -27,7 +27,7 @@
           mysqli_query($conn, $emptyBasket);
           header("location:" . $_SERVER['PHP_SELF']);
         }
-      } else { echo "<script> alert('$alert')</script>";}
+      } else { echo "<script> alert('Some items in your cart are no longer available in stock :(')</script>";}
     } else { echo "<script> alert('Please complete billing and payment info!')</script>"; }
   }
 
