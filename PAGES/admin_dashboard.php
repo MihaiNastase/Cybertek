@@ -30,46 +30,8 @@
   <div class="container-flow">
   <div class="content col-sm-10 col-md-8"></div>
   <!-- HEADER STARTS HERE -->
-  <div class="row">
-    <div class="hidden-xs col-md-12 header">
-      <div class="row">
-
-        <div class="col-2"></div>
-        <div class="col-3">
-          <img src="../MEDIA/landing_page/logo.png" alt="CYBERTEK">
-        </div>
-        <div class="col-6">
-          <div class="menu">
-
-            <figure>
-              <a href="admin_.php?target=products">
-                <img src="../MEDIA/menu_buttons/add_product.png" alt="logout">
-                <figcaption>PRODUCTS_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="admin_.php?target=profiles">
-                <img src="../MEDIA/menu_buttons/add_cust.png" alt="logout">
-                <figcaption>USERS_</figcaption>
-              </a>
-            </figure>
-
-            <figure>
-              <a href="admin_dashboard.php?logout='1'" class="confirmation">
-                <img src="../MEDIA/menu_buttons/logout.png" alt="logout">
-                <figcaption>LOGOUT_</figcaption>
-              </a>
-            </figure>
-
-        </div>
-      </div>
-      <div class="col-1">
-        <div class="clock"></div>
-      </div>
-  </div>
-  </div>
-  </div>
+  <?php include '../PHP/admin_header.php'; ?>
+  <?php include '../PHP/admin_hamburger.php'; ?>
   <!-- HEADER EDNS HERE -->
 
   <div class="row">

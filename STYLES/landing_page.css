@@ -23,6 +23,8 @@
   background-size: 110%, 110%, 110%;
 }
 
+#text {text-align: left;}
+
 p {
   font-family: Tomorrow, sans-serif;
   font-size: calc(0.5em + 1vw);
