@@ -8,7 +8,9 @@ The application features working login and registration, with custom field valia
   1. Customer - can register normally through the registration portal.
   2. Admin - only added by another admin through the dashboard built in the app or hardoced in the database.
 
+![Login page](https://github.com/MihaiNastase/Cybertek/blob/main/Screenshots/login.PNG?raw=true)
 
+![Registration page](https://github.com/MihaiNastase/Cybertek/blob/main/Screenshots/reg.PNG?raw=true)
 
 The application relies on a MySQL database connection, to store customer, admin, product and shopping data. The login passwords are hashed before being stored.
 
